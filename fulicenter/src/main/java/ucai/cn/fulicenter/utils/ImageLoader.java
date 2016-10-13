@@ -13,13 +13,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.R;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+
 
 /**
  * Created by yao on 2016/5/18.
