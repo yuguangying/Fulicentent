@@ -20,11 +20,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.R;
 import cn.ucai.fulicenter.activity.CategoryChildActivity;
 import cn.ucai.fulicenter.bean.CategoryChildBean;
 import cn.ucai.fulicenter.utils.ImageLoader;
 import cn.ucai.fulicenter.utils.Utils;
+import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.utils.BitmapUtils;
+import ucai.cn.fulicenter.utils.ConvertUtils;
+import ucai.cn.fulicenter.utils.FileUtils;
 
 /**
  * 显示分类中当前所属小类的列表
@@ -59,7 +62,7 @@ public class CatChildFilterButton extends Button {
         if(mgvCategory.getAdapter().getCount()<16){
             mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
         }else{
-            mPopupWindow.setHeight(Utils.px2dp(mContext, 200));
+            mPopupWindow.setHeight(ConvertUtils.px2dp(mContext, 200));
         }
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
@@ -70,9 +73,9 @@ public class CatChildFilterButton extends Button {
 
     private void initGridView() {
         mgvCategory=new GridView(mContext);
-        mgvCategory.setColumnWidth(Utils.px2dp(mContext, 1500));
-        mgvCategory.setHorizontalSpacing(Utils.px2dp(mContext, 10));
-        mgvCategory.setVerticalSpacing(Utils.px2dp(mContext, 10));
+        mgvCategory.setColumnWidth(ConvertUtils.px2dp(mContext, 1500));
+        mgvCategory.setHorizontalSpacing(ConvertUtils.px2dp(mContext, 10));
+        mgvCategory.setVerticalSpacing(ConvertUtils.px2dp(mContext, 10));
         mgvCategory.setNumColumns(GridView.AUTO_FIT);
         mgvCategory.setBackgroundColor(Color.TRANSPARENT);
         mgvCategory.setPadding(3, 3, 3, 3);

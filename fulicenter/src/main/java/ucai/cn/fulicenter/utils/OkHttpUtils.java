@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.google.gson.Gson;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.RequestBody;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,19 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import cn.ucai.fulicenter.FuLiCenterApplication;
-import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.bean.Result;
-import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+
 
 
 /**
