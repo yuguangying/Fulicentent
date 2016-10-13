@@ -19,15 +19,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cn.ucai.fulicenter.I;
-import cn.ucai.fulicenter.activity.CategoryChildActivity;
-import cn.ucai.fulicenter.bean.CategoryChildBean;
-import cn.ucai.fulicenter.utils.ImageLoader;
-import cn.ucai.fulicenter.utils.Utils;
+import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
-import ucai.cn.fulicenter.utils.BitmapUtils;
+import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.utils.ConvertUtils;
-import ucai.cn.fulicenter.utils.FileUtils;
+import ucai.cn.fulicenter.utils.ImageLoader;
 
 /**
  * 显示分类中当前所属小类的列表

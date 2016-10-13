@@ -53,7 +53,6 @@ public class OkHttpUtils<T> {
     }
 
     private OnCompleteListener<T> mListener;
-
     OkHttpClient.Builder mBuilder;
     /**
      * 构造器，mOkHttpClient必须单例，无论创建多少个OkHttpUtils的实例。
