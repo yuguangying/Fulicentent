@@ -127,11 +127,11 @@ public class CatChildFilterButton extends Button {
         public View getView(int position, View layout, final ViewGroup parent) {
             ViewChildHolder holder=null;
             if(layout==null){
-                layout= View.inflate(context, R.layout.item_cat_filter, null);
-                holder=new ViewChildHolder();
-                holder.layoutItem=(RelativeLayout) layout.findViewById(R.id.layout_category_child);
-                holder.ivThumb=(ImageView) layout.findViewById(R.id.ivCategoryChildThumb);
-                holder.tvChildName=(TextView) layout.findViewById(R.id.tvCategoryChildName);
+//                layout= View.inflate(context, R.layout.item_cat_filter, null);
+//                holder=new ViewChildHolder();
+//                holder.layoutItem=(RelativeLayout) layout.findViewById(R.id.layout_category_child);
+//                holder.ivThumb=(ImageView) layout.findViewById(R.id.ivCategoryChildThumb);
+//                holder.tvChildName=(TextView) layout.findViewById(R.id.tvCategoryChildName);
                 layout.setTag(holder);
             }else{
                 holder=(ViewChildHolder) layout.getTag();
@@ -153,7 +153,7 @@ public class CatChildFilterButton extends Button {
                     intent.putExtra("childList", Children);
                     intent.putExtra(I.CategoryGroup.NAME, mbtnTop.getText().toString());
                     mContext.startActivity(intent);
-                    ((CategoryChildActivity)mContext).finish();
+//                    ((CategoryChildActivity)mContext).finish();
                 }
             });
             return layout;
