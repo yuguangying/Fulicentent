@@ -17,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        //闪屏
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -30,6 +31,8 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                //活动界面跳转是的动画
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
             }
         }).start();
     }
