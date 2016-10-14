@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ucai.cn.fulicenter.CategoryChildActivity;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
