@@ -1,10 +1,11 @@
 package ucai.cn.fulicenter.activity;
 
-import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.utils.MFGT;
 
 public class SplashActivity extends AppCompatActivity {
     static final long SLEEPTIME = 2000;
@@ -18,22 +19,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         //闪屏
-        new Thread(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                long start = System.currentTimeMillis();
-                long courTime = System.currentTimeMillis() - start;
-                if (SLEEPTIME - courTime>0){
-                    try {
-                        Thread.sleep(SLEEPTIME - courTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                startActivity(new Intent(SplashActivity.this,MainActivity.class));
-                //活动界面跳转是的动画
-                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+                //活动界面跳转时的动画
+                MFGT.gotoMainActivity(SplashActivity.this);
+                MFGT.finish(SplashActivity.this);
             }
-        }).start();
+        },SLEEPTIME);
     }
 }

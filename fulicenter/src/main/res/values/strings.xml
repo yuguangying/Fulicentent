@@ -5,4 +5,10 @@
     <string name="now_refresh">now_refresh</string>
     <string name="no_more">no more</string>
     <string name="load_more">load more</string>
+    <string name="personal_center">个人中心</string>
+    <string name="cart">购物车</string>
+    <string name="category">类别</string>
+    <string name="boutique">精选</string>
+    <string name="new_good">新品</string>
+    <string name="text">1000</string>
 </resources>

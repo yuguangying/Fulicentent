@@ -10,6 +10,7 @@ import ucai.cn.fulicenter.R;
 public class MFGT {
     public static void finish(Activity activity){
         activity.finish();
+        //活动界面跳转时的动画
         activity.overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
     }
     public static void gotoMainActivity(Activity context){
@@ -19,6 +20,7 @@ public class MFGT {
         Intent intent = new Intent();
         intent.setClass(context,cls);
         context.startActivity(intent);
+        //活动界面跳转时的动画
         context.overridePendingTransition(R.anim.push_left_in,R.anim.push_left_out);
     }
 }
