@@ -3,7 +3,7 @@ package ucai.cn.fulicenter.bean;
 /**
  * Created by Administrator on 2016/10/13.
  */
-public class NewGoodsBean {
+public class NewGoodsBeanFive {
 
     /**
      * id : 1
@@ -46,6 +46,7 @@ public class NewGoodsBean {
     private String colorUrl;
     private int addTime;
     private boolean promote;
+
 
     public int getId() {
         return id;
@@ -199,12 +200,12 @@ public class NewGoodsBean {
         this.promote = promote;
     }
 
-    public NewGoodsBean() {
+    public NewGoodsBeanFive() {
     }
 
     @Override
     public String toString() {
-        return "NewGoodsBean{" +
+        return "NewGoodsBeanFive{" +
                 "id=" + id +
                 ", goodsId=" + goodsId +
                 ", catId=" + catId +
