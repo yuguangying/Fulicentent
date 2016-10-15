@@ -2,99 +2,92 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/list_item_des">
+    android:background="@color/list_item_des"
+    >
 
     <View
-        android:layout_above="@id/cai"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/blue"
-        android:layout_marginBottom="3dp"/>
-    <LinearLayout
-        android:id="@+id/cai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="53dp"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+        android:background="@color/blue" />
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/list_background">
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/boutique"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_boutique"
-                android:layout_weight="1"
-                android:text="@string/boutique"
-                android:textColor="@color/main_botton_text_color"
                 android:gravity="center_horizontal"
-                />
+                android:text="@string/boutique"
+                android:textColor="@color/main_botton_text_color" />
+
             <RadioButton
                 android:id="@+id/category"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_category"
-                android:layout_weight="1"
-                android:text="@string/category"
-                android:textColor="@color/main_botton_text_color"
                 android:gravity="center_horizontal"
-                />
+                android:text="@string/category"
+                android:textColor="@color/main_botton_text_color" />
+
             <RadioButton
                 android:id="@+id/new_good"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_new_good"
-                android:layout_weight="1"
-                android:text="@string/new_good"
-                android:textColor="@color/main_botton_text_color"
                 android:gravity="center_horizontal"
-                />
+                android:text="@string/new_good"
+                android:textColor="@color/main_botton_text_color" />
+
             <RadioButton
                 android:id="@+id/personal_center"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/selector_menu_item_personal_center"
-                android:layout_weight="1"
-                android:text="@string/personal_center"
-                android:textColor="@color/main_botton_text_color"
                 android:gravity="center_horizontal"
-                />
-            <RelativeLayout
-                android:id="@+id/relativeCar"
+                android:text="@string/personal_center"
+                android:textColor="@color/main_botton_text_color" />
+
+            <RadioButton
+                android:id="@+id/car"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <RadioButton
-                    android:id="@+id/car"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:button="@null"
-                    android:drawableTop="@drawable/selector_menu_item_cart"
-                    android:text="@string/cart"
-                    android:textColor="@color/main_botton_text_color"
-                    android:gravity="center_horizontal"
-                    />
-                <TextView
-                    android:layout_alignEnd="@id/car"
-                    android:layout_alignTop="@id/car"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/cart_hint"
-                    android:text="@string/text"
-                    />
-            </RelativeLayout>
-
-
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/selector_menu_item_cart"
+                android:gravity="center_horizontal"
+                android:text="@string/cart"
+                android:textColor="@color/main_botton_text_color" />
         </RadioGroup>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/cart_hint"
+            android:text="@string/text" />
+    </RelativeLayout>
+
 </RelativeLayout>
