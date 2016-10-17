@@ -5,8 +5,8 @@
 <ImageView
     android:id="@+id/miv_goods"
     android:layout_width="195dp"
-    android:layout_height="300dp"
-    android:src="@drawable/category_child"/>
+    android:layout_height="250dp"
+    android:src="@drawable/nopic"/>
   <TextView
       android:layout_marginLeft="20dp"
       android:id="@+id/goods_name"

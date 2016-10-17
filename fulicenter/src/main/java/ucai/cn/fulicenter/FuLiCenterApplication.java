@@ -9,16 +9,17 @@ import android.os.Looper;
  * Created by Administrator on 2016/10/13.
  */
 public class FuLiCenterApplication extends Application{
-    public static FuLiCenterApplication applicationContext=Holde.INSTANCE;
+    private static FuLiCenterApplication applicationContext=null;
 
-    @Override
-    public Looper getMainLooper() {
-        return super.getMainLooper();
+
+    public FuLiCenterApplication() {
+        applicationContext = this;
     }
-    private static class Holde{
-        private static final FuLiCenterApplication INSTANCE = new FuLiCenterApplication();
-    }
+
     public static FuLiCenterApplication getInstance(){
-        return Holde.INSTANCE;
+        if (applicationContext==null){
+            applicationContext = new FuLiCenterApplication();
+        }
+        return applicationContext;
     }
 }
