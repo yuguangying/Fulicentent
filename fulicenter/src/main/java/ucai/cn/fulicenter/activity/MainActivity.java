@@ -19,6 +19,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
+import ucai.cn.fulicenter.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     RadioButton mcar;
     @Bind(R.id.mcount)
     TextView mcount;
+
+    NewGoodsFragment newGoodsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +80,15 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mboutique:
+
                 break;
             case R.id.mcategory:
                 break;
             case R.id.mnew_good:
+                if (newGoodsFragment==null) {
+                    newGoodsFragment = new NewGoodsFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, newGoodsFragment).show(newGoodsFragment).commit();
+                }
                 break;
             case R.id.mpersonal_center:
                 break;

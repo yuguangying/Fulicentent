@@ -9,17 +9,21 @@ import android.os.Looper;
  * Created by Administrator on 2016/10/13.
  */
 public class FuLiCenterApplication extends Application{
-    private static FuLiCenterApplication applicationContext=null;
+    public static FuLiCenterApplication applicationContext=null;
+    private static FuLiCenterApplication instance;
 
-
-    public FuLiCenterApplication() {
+    @Override
+    public void onCreate() {
+        super.onCreate();
         applicationContext = this;
+        instance = this;
     }
 
+
     public static FuLiCenterApplication getInstance(){
-        if (applicationContext==null){
-            applicationContext = new FuLiCenterApplication();
+        if (instance==null){
+            instance = new FuLiCenterApplication();
         }
-        return applicationContext;
+        return instance;
     }
 }

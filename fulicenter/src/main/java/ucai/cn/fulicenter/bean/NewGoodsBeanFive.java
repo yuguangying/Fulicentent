@@ -44,7 +44,7 @@ public class NewGoodsBeanFive {
     private String colorName;
     private String colorCode;
     private String colorUrl;
-    private int addTime;
+    private String addTime;
     private boolean promote;
 
 
@@ -184,11 +184,11 @@ public class NewGoodsBeanFive {
         this.colorUrl = colorUrl;
     }
 
-    public int getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(int addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 

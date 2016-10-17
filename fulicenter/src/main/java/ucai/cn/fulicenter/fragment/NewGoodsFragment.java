@@ -19,12 +19,14 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.net.GoodsDao;
+import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 /**
@@ -61,12 +63,14 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initData() {
-        GoodsDao.downloadNewGoods(mcontext, pagId, new OkHttpUtils.OnCompleteListener() {
+        GoodsDao.downloadNewGoods(mcontext, pagId, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
-            public void onSuccess(Object result) {
-                String json = result.toString();
-                Log.i("main", "onSuccess: "+json);
-                Gson gson = new Gson();
+            public void onSuccess(NewGoodsBeanFive[] result) {
+                Log.i("main", "onSuccess: ");
+                if (result!=null&&result.length>0){
+                    ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
+                    goodadapter.initData(list);
+                }
 
 
             }
@@ -74,9 +78,10 @@ public class NewGoodsFragment extends Fragment {
             @Override
             public void onError(String error) {
                 Toast.makeText(mcontext, error, Toast.LENGTH_SHORT).show();
-
             }
         });
+
+
     }
 
     private void initView() {

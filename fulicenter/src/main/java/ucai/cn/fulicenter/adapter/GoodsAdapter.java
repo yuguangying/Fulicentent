@@ -2,6 +2,7 @@ package ucai.cn.fulicenter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.utils.ImageLoader;
+import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/10/17.
@@ -44,6 +46,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        Log.i("main", "onBindViewHolder: "+goodlist.size());
         if (getItemViewType(position) == I.TYPE_FOOTER){
             FootViewHolder footholder = (FootViewHolder) holder;
             footholder.foot.setText("没有更多数据");
@@ -53,7 +56,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         NewGoodsBeanFive goodfive = goodlist.get(position);
         goodsholder.goodsName.setText(goodfive.getGoodsName());
         goodsholder.goodsPrice.setText(goodfive.getCurrencyPrice());
-        ImageLoader.downloadImg(context,goodsholder.mivGoods,goodfive.getGoodsImg());
+        ImageLoader.downloadImg(context,goodsholder.mivGoods,goodfive.getGoodsThumb());
 
 
     }
@@ -70,6 +73,16 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         }
         return I.TYPE_ITEM;
     }
+
+    public void initData(ArrayList<NewGoodsBeanFive> list) {
+        if (goodlist!=null){
+            goodlist.clear();
+
+        }
+        goodlist.addAll(list);
+        notifyDataSetChanged();
+    }
+
 
     static class FootViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.foot)

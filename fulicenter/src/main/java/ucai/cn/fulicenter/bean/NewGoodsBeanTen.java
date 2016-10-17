@@ -41,7 +41,7 @@ public class NewGoodsBeanTen {
     private boolean isPromote;
     private String goodsThumb;
     private String goodsImg;
-    private long addTime;
+    private String addTime;
     private String shareUrl;
     private boolean promote;
     /**
@@ -161,11 +161,11 @@ public class NewGoodsBeanTen {
         this.goodsImg = goodsImg;
     }
 
-    public long getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(long addTime) {
+    public void setAddTime(String addTime) {
         this.addTime = addTime;
     }
 
