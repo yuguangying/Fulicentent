@@ -2,35 +2,39 @@ package ucai.cn.fulicenter.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Bind(R.id.boutique)
-    RadioButton boutique;
-    @Bind(R.id.category)
-    RadioButton category;
-    @Bind(R.id.new_good)
-    RadioButton newGood;
-    @Bind(R.id.personal_center)
-    RadioButton personalCenter;
-    @Bind(R.id.car)
-    RadioButton car;
-    @Bind(R.id.radioGroup)
-    RadioGroup radioGroup;
-    @Bind(R.id.count)
-    TextView count;
-    @Bind(R.id.rl)
-    RelativeLayout rl;
+
+    @Bind(R.id.mboutique)
+    RadioButton mboutique;
+    @Bind(R.id.mcategory)
+    RadioButton mcategory;
+    @Bind(R.id.mnew_good)
+    RadioButton mnewGood;
+    @Bind(R.id.mpersonal_center)
+    RadioButton mpersonalCenter;
+    @Bind(R.id.mcar)
+    RadioButton mcar;
+    @Bind(R.id.mcount)
+    TextView mcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +43,48 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.boutique, R.id.category, R.id.new_good, R.id.personal_center, R.id.car})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.boutique:
-                break;
-            case R.id.category:
-                break;
-            case R.id.new_good:
-                break;
-            case R.id.personal_center:
-                break;
-            case R.id.car:
-                break;
-        }
+
+    private void downloadBoutique() {
+        String a = I.SERVER_ROOT + I.REQUEST_FIND_BOUTIQUES;
+        OkHttpClient client = new OkHttpClient();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url(a).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("main", "onFailure: ");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                json = json.replace("\r\n", "\n");
+                Log.i("main", json);
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick({R.id.mboutique, R.id.mcategory, R.id.mnew_good, R.id.mpersonal_center, R.id.mcar, R.id.mcount})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.mboutique:
+                break;
+            case R.id.mcategory:
+                break;
+            case R.id.mnew_good:
+                break;
+            case R.id.mpersonal_center:
+                break;
+            case R.id.mcar:
+                break;
+        }
     }
 }

@@ -4,6 +4,8 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import ucai.cn.fulicenter.I;
+
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration{
 
     private int space;
@@ -22,10 +24,10 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration{
         outRect.set(space / 2, 0, space / 2, 0);
 
         // 从第二行开始 top = mSpace
-//            if (pos >= I.COLUM_NUM) {
+            if (pos >= I.COLUM_NUM) {
         outRect.top = space;
-//            } else {
-//                outRect.top = 0;
-//            }
+            } else {
+                outRect.top = 0;
+            }
     }
 }
