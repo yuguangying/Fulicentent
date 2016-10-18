@@ -24,12 +24,7 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 public class GoodsAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<NewGoodsBeanFive> goodlist;
-    boolean ismore = true;
-    String footext;
-
-    public void setFootext(String footext) {
-        this.footext = footext;
-    }
+    boolean ismore;
 
     public boolean ismore() {
         return ismore;
@@ -37,6 +32,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
     public void setIsmore(boolean ismore) {
         this.ismore = ismore;
+        notifyDataSetChanged();
     }
 
     public GoodsAdapter(Context context, ArrayList<NewGoodsBeanFive> goodlist) {
@@ -62,7 +58,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == I.TYPE_FOOTER) {
             FootViewHolder footholder = (FootViewHolder) holder;
-            footholder.foot.setText(footext);
+            footholder.foot.setText(getFootString());
             return;
         }
         GoodsViewHolder goodsholder = (GoodsViewHolder) holder;
@@ -98,6 +94,10 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     public void addData(ArrayList<NewGoodsBeanFive> list) {
         goodlist.addAll(list);
         notifyDataSetChanged();
+    }
+
+    public int getFootString() {
+        return ismore?R.string.load_more:R.string.no_more;
     }
 
 

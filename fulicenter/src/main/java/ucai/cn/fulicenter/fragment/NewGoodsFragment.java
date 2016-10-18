@@ -26,6 +26,7 @@ import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.net.GoodsDao;
+import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
@@ -86,6 +87,12 @@ public class NewGoodsFragment extends Fragment {
                 }
 
             }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                lastpostion = glm.findLastVisibleItemPosition();
+            }
         });
     }
 
@@ -110,15 +117,17 @@ public class NewGoodsFragment extends Fragment {
             public void onSuccess(NewGoodsBeanFive[] result) {
                 if (result!=null&&result.length>0){
                     ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
-                    goodadapter.setIsmore(list!=null&&list.size()>0);
-                    goodadapter.setFootext("加载更多数据");
+                    goodadapter.setIsmore(true);
+                    if (list.size()<I.PAGE_SIZE_DEFAULT){
+                        goodadapter.setIsmore(false);
+                    }
                     switch (action){
                         case I.ACTION_DOWNLOAD:
                             goodadapter.initDataDown(list);
                             break;
                         case I.ACTION_PULL_DOWN:
                             goodadapter.initDataDown(list);
-                            swipe.setEnabled(false);
+                            swipe.setRefreshing(false);
                             refresh.setVisibility(View.GONE);
                             ImageLoader.release();
                             break;
@@ -127,15 +136,16 @@ public class NewGoodsFragment extends Fragment {
                             break;
                     }
                 }else {
-                    if (action == I.ACTION_PULL_UP){
-                        goodadapter.setFootext("没有更多数据");
-                    }
+                    goodadapter.setIsmore(false);
                 }
             }
 
             @Override
             public void onError(String error) {
-                Toast.makeText(mcontext, error, Toast.LENGTH_SHORT).show();
+                swipe.setEnabled(false);
+                goodadapter.setIsmore(false);
+                refresh.setVisibility(View.GONE);
+                CommonUtils.showShortToast(error);
             }
         });
 
@@ -153,6 +163,7 @@ public class NewGoodsFragment extends Fragment {
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_yellow)
         );
+        //设置了两列
         glm = new GridLayoutManager(mcontext, I.COLUM_NUM);
         recycler.setLayoutManager(glm);
         //适配

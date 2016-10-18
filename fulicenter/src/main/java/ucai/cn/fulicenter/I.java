@@ -12,6 +12,7 @@ public interface I {
 
     /** 每行显示的数量columNum*/
     int COLUM_NUM = 2;
+    int COLUM_NUM_ONE = 1;
 
 
     /** 表示列表项布局的两种类型*/

@@ -20,6 +20,7 @@ import okhttp3.Response;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
+import ucai.cn.fulicenter.fragment.BoutiqueFragment;
 import ucai.cn.fulicenter.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView mcount;
 
     NewGoodsFragment newGoodsFragment;
+    BoutiqueFragment boutiqueFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mboutique:
-
+                if (boutiqueFragment==null) {
+                    boutiqueFragment = new BoutiqueFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, boutiqueFragment).show(boutiqueFragment).commit();
+                }
                 break;
             case R.id.mcategory:
                 break;
