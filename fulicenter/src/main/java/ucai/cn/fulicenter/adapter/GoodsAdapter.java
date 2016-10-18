@@ -24,6 +24,15 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 public class GoodsAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<NewGoodsBeanFive> goodlist;
+    boolean ismore = true;
+
+    public boolean ismore() {
+        return ismore;
+    }
+
+    public void setIsmore(boolean ismore) {
+        this.ismore = ismore;
+    }
 
     public GoodsAdapter(Context context, ArrayList<NewGoodsBeanFive> goodlist) {
         this.context = context;
@@ -74,11 +83,15 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         return I.TYPE_ITEM;
     }
 
-    public void initData(ArrayList<NewGoodsBeanFive> list) {
+    public void initDataDown(ArrayList<NewGoodsBeanFive> list) {
         if (goodlist!=null){
             goodlist.clear();
-
         }
+        goodlist.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void addData(ArrayList<NewGoodsBeanFive> list) {
         goodlist.addAll(list);
         notifyDataSetChanged();
     }

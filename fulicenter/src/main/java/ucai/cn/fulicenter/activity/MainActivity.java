@@ -48,27 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void downloadBoutique() {
-        String a = I.SERVER_ROOT + I.REQUEST_FIND_BOUTIQUES;
-        OkHttpClient client = new OkHttpClient();
-        Request.Builder builder = new Request.Builder();
-        Request request = builder.url(a).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.i("main", "onFailure: ");
 
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                json = json.replace("\r\n", "\n");
-                Log.i("main", json);
-            }
-        });
-    }
 
     @Override
     protected void onDestroy() {

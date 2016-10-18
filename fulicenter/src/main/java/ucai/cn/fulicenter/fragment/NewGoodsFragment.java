@@ -27,6 +27,7 @@ import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.ConvertUtils;
+import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 /**
@@ -45,6 +46,9 @@ public class NewGoodsFragment extends Fragment {
     GoodsAdapter goodadapter;
     ArrayList<NewGoodsBeanFive> goodslist;
     int pagId = 1;
+    GridLayoutManager glm;
+    int action = I.ACTION_DOWNLOAD;
+
 
     public NewGoodsFragment() {
         // Required empty public constructor
@@ -59,20 +63,67 @@ public class NewGoodsFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         initData();
+        setListener();
         return view;
     }
 
+    private void setListener() {
+        ActionPullDown();
+        ActionPullUp();
+    }
+
+    private void ActionPullUp() {
+        recycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            int lastpostion;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                lastpostion = glm.findLastVisibleItemPosition();
+                if (lastpostion>=goodadapter.getItemCount()-1&&newState==RecyclerView.SCROLL_STATE_IDLE&&goodadapter.ismore()){
+                    pagId++;
+                    action = I.ACTION_PULL_UP;
+                    initData();
+                }
+
+            }
+        });
+    }
+
+    private void ActionPullDown() {
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                pagId = 1;
+                action = I.ACTION_PULL_DOWN;
+                initData();
+            }
+        });
+    }
+
+
     private void initData() {
-        GoodsDao.downloadNewGoods(mcontext, pagId, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
+        GoodsDao.downloadNewGoods(mcontext, pagId,action, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
                 Log.i("main", "onSuccess: ");
                 if (result!=null&&result.length>0){
                     ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
-                    goodadapter.initData(list);
+                    goodadapter.setIsmore(list!=null&&list.size()>0);
+                    switch (action){
+                        case I.ACTION_DOWNLOAD:
+                            goodadapter.initDataDown(list);
+                            break;
+                        case I.ACTION_PULL_DOWN:
+                            goodadapter.initDataDown(list);
+                            swipe.setEnabled(false);
+                            refresh.setVisibility(View.GONE);
+                            ImageLoader.release();
+                            break;
+                        case I.ACTION_PULL_UP:
+                            goodadapter.addData(list);
+                            break;
+                    }
                 }
-
-
             }
 
             @Override
@@ -94,7 +145,7 @@ public class NewGoodsFragment extends Fragment {
                 getResources().getColor(R.color.google_green),
                 getResources().getColor(R.color.google_yellow)
         );
-        GridLayoutManager glm = new GridLayoutManager(mcontext, I.COLUM_NUM);
+        glm = new GridLayoutManager(mcontext, I.COLUM_NUM);
         recycler.setLayoutManager(glm);
         //适配
         recycler.setHasFixedSize(true);
