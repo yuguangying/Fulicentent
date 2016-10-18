@@ -13,4 +13,12 @@
         <attr name="focus_color" format="color|reference"/>
         <attr name="focus" format="integer"/>
     </declare-styleable>
+    <declare-styleable name="FocusView">
+        <attr name="radius" format="dimension"/>
+        <attr name="noamlaColor" format="color|reference"/>
+        <attr name="focusColor" format="color|reference"/>
+        <attr name="space_my" format="dimension"/>
+        <attr name="focus_my" format="integer"/>
+        <attr name="count_my" format="integer"/>
+    </declare-styleable>
 </resources>

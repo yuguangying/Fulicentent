@@ -1,6 +1,7 @@
 package ucai.cn.fulicenter.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.mcount)
     TextView mcount;
 
+    Fragment fragment;
     NewGoodsFragment newGoodsFragment;
     BoutiqueFragment boutiqueFragment;
 
@@ -63,17 +65,26 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.mboutique:
-                if (boutiqueFragment==null) {
-                    boutiqueFragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, boutiqueFragment).show(boutiqueFragment).commit();
+                if (fragment==null) {
+                    fragment = new BoutiqueFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
+                }else {
+                    fragment=null;
+                    fragment = new BoutiqueFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
                 }
                 break;
             case R.id.mcategory:
                 break;
             case R.id.mnew_good:
-                if (newGoodsFragment==null) {
-                    newGoodsFragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, newGoodsFragment).show(newGoodsFragment).commit();
+
+                if (fragment==null) {
+                    fragment = new NewGoodsFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
+                }else {
+                    fragment=null;
+                    fragment = new NewGoodsFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
                 }
                 break;
             case R.id.mpersonal_center:

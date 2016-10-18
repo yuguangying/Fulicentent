@@ -1,22 +1,25 @@
 package ucai.cn.fulicenter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.utils.ImageLoader;
-import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 /**
  * Created by Administrator on 2016/10/17.
@@ -62,12 +65,11 @@ public class GoodsAdapter extends RecyclerView.Adapter {
             return;
         }
         GoodsViewHolder goodsholder = (GoodsViewHolder) holder;
-        NewGoodsBeanFive goodfive = goodlist.get(position);
+        final NewGoodsBeanFive goodfive = goodlist.get(position);
         goodsholder.goodsName.setText(goodfive.getGoodsName());
         goodsholder.goodsPrice.setText(goodfive.getCurrencyPrice());
         ImageLoader.downloadImg(context, goodsholder.mivGoods, goodfive.getGoodsThumb());
-
-
+        goodsholder.gooditem.setTag(goodfive.getGoodsId());
     }
 
     @Override
@@ -97,8 +99,9 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     }
 
     public int getFootString() {
-        return ismore?R.string.load_more:R.string.no_more;
+        return ismore ? R.string.load_more : R.string.no_more;
     }
+
 
 
     static class FootViewHolder extends RecyclerView.ViewHolder {
@@ -111,17 +114,24 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         }
     }
 
-    static class GoodsViewHolder extends RecyclerView.ViewHolder {
+    class GoodsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.miv_goods)
         ImageView mivGoods;
         @Bind(R.id.goods_name)
         TextView goodsName;
         @Bind(R.id.goods_price)
         TextView goodsPrice;
-
+        @Bind(R.id.goods_item)
+        LinearLayout gooditem;
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+        @OnClick(R.id.goods_item)
+        public void goodOnclick(){
+            int goodsId = (int) gooditem.getTag();
+            context.startActivity(new Intent(context, GoodsDatileActivity.class)
+                    .putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsId));
         }
     }
 }
