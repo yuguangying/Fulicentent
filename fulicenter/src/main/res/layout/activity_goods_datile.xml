@@ -42,7 +42,7 @@
             android:layout_height="42dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/share"
-            android:src="@mipmap/bg_collect_out" />
+            android:src="@drawable/selector_bg_collect" />
 
         <ImageView
             android:id="@+id/add_car"
@@ -96,26 +96,26 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/nopic" />
 
-    <ucai.cn.fulicenter.views.FocusView
-        android:id="@+id/fv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/goods_iv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        apps:count_my="6"
-        apps:focusColor="#ff5580"
-        apps:focus_my="0"
-        apps:noamlaColor="#154ff5"
-        apps:radius="10dp"
-        apps:space_my="3dp" />
+
 
     <TextView
         android:id="@+id/brief_introduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fv"
+        android:layout_below="@id/flowIndicator"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="kdsajkfklsdjfk" />
+    <ucai.cn.fulicenter.views.FlowIndicator
+        android:layout_below="@+id/goods_iv"
+        android:id="@+id/flowIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        apps:count="6"
+        apps:focus="0"
+        apps:focus_color="@color/orange"
+        apps:normal_color="@color/blue"
+        apps:r="10dp"
+        apps:space="3dp"
+        />
 </RelativeLayout>
