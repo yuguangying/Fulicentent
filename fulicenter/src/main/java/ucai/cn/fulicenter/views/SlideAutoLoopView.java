@@ -1,6 +1,7 @@
 package ucai.cn.fulicenter.views;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -18,6 +19,9 @@ import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ucai.cn.fulicenter.I;
+import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
 
 /**
@@ -155,15 +159,16 @@ public class SlideAutoLoopView extends ViewPager {
             iv.setLayoutParams(params);
             String imgUrl=albumImgUrl[position%count];
             String imgName="images/"+imgUrl;
-//            String url= I.DOWNLOAD_ALBUM_IMG_URL+imgUrl;
-//            Bitmap bitmap = imageLoader.displayImage(url, imgName, Utils.px2dp(context, 260), Utils.px2dp(context, 200), new OnImageLoadListener() {
+            String url= I.REQUEST_DOWNLOAD_ALBUM_IMG+imgUrl;
+//            Bitmap bitmap = imageLoader.displayImage(url, imgName, ConvertUtils.px2dp(context, 260),
+//                    ConvertUtils.px2dp(context, 200), new ImageLoader.OnImageLoadListener() {
 //                @Override
 //                public void onSuccess(String path, Bitmap bitmap) {
 //                    iv.setImageBitmap(bitmap);
 //                }
 //
 //                @Override
-//                public void error(String errorMsg) {
+//                public void onError(String errorMsg) {
 //                    // TODO Auto-generated method stub
 //
 //                }

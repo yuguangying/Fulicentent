@@ -88,15 +88,16 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <ImageView
+    <ucai.cn.fulicenter.views.SlideAutoLoopView
         android:id="@+id/goods_iv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_below="@id/rlname"
         android:layout_marginTop="30dp"
         android:src="@drawable/nopic" />
 
     <ucai.cn.fulicenter.views.FlowIndicator
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/goods_iv"
         android:id="@+id/flowIndicator"
         android:layout_width="match_parent"
@@ -109,14 +110,14 @@
         apps:space="3dp"
         />
 
-    <TextView
+
+    <WebView
         android:id="@+id/brief_introduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/flowIndicator"
         android:layout_marginTop="30dp"
-
         android:gravity="center"
-        android:text="kdsajkfklsdjfk" />
+         />
 
 </RelativeLayout>
