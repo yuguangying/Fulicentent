@@ -25,6 +25,11 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<NewGoodsBeanFive> goodlist;
     boolean ismore = true;
+    String footext;
+
+    public void setFootext(String footext) {
+        this.footext = footext;
+    }
 
     public boolean ismore() {
         return ismore;
@@ -55,17 +60,16 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.i("main", "onBindViewHolder: "+goodlist.size());
-        if (getItemViewType(position) == I.TYPE_FOOTER){
+        if (getItemViewType(position) == I.TYPE_FOOTER) {
             FootViewHolder footholder = (FootViewHolder) holder;
-            footholder.foot.setText("没有更多数据");
+            footholder.foot.setText(footext);
             return;
         }
         GoodsViewHolder goodsholder = (GoodsViewHolder) holder;
         NewGoodsBeanFive goodfive = goodlist.get(position);
         goodsholder.goodsName.setText(goodfive.getGoodsName());
         goodsholder.goodsPrice.setText(goodfive.getCurrencyPrice());
-        ImageLoader.downloadImg(context,goodsholder.mivGoods,goodfive.getGoodsThumb());
+        ImageLoader.downloadImg(context, goodsholder.mivGoods, goodfive.getGoodsThumb());
 
 
     }
@@ -84,7 +88,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     }
 
     public void initDataDown(ArrayList<NewGoodsBeanFive> list) {
-        if (goodlist!=null){
+        if (goodlist != null) {
             goodlist.clear();
         }
         goodlist.addAll(list);
@@ -107,7 +111,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         }
     }
 
-    static class GoodsViewHolder extends RecyclerView.ViewHolder{
+    static class GoodsViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.miv_goods)
         ImageView mivGoods;
         @Bind(R.id.goods_name)

@@ -95,6 +95,9 @@ public class NewGoodsFragment extends Fragment {
             public void onRefresh() {
                 pagId = 1;
                 action = I.ACTION_PULL_DOWN;
+                swipe.setEnabled(true);
+                swipe.setRefreshing(true);
+                refresh.setVisibility(View.VISIBLE);
                 initData();
             }
         });
@@ -105,10 +108,10 @@ public class NewGoodsFragment extends Fragment {
         GoodsDao.downloadNewGoods(mcontext, pagId,action, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
-                Log.i("main", "onSuccess: ");
                 if (result!=null&&result.length>0){
                     ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
                     goodadapter.setIsmore(list!=null&&list.size()>0);
+                    goodadapter.setFootext("加载更多数据");
                     switch (action){
                         case I.ACTION_DOWNLOAD:
                             goodadapter.initDataDown(list);
@@ -122,6 +125,10 @@ public class NewGoodsFragment extends Fragment {
                         case I.ACTION_PULL_UP:
                             goodadapter.addData(list);
                             break;
+                    }
+                }else {
+                    if (action == I.ACTION_PULL_UP){
+                        goodadapter.setFootext("没有更多数据");
                     }
                 }
             }
@@ -139,6 +146,7 @@ public class NewGoodsFragment extends Fragment {
         mcontext = (MainActivity) getContext();
         goodslist = new ArrayList<>();
         goodadapter = new GoodsAdapter(mcontext,goodslist);
+        //给刷新的圆圈设置渐变的颜色
         swipe.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
                 getResources().getColor(R.color.google_red),
