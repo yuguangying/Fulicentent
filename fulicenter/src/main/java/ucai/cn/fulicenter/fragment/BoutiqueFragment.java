@@ -3,6 +3,7 @@ package ucai.cn.fulicenter.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -32,7 +33,7 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BoutiqueFragment extends Fragment {
+public class BoutiqueFragment extends DialogFragment {
 
     @Bind(R.id.refresh)
     TextView refresh;
@@ -170,5 +171,6 @@ public class BoutiqueFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+
     }
 }

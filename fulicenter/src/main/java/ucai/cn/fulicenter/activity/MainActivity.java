@@ -1,12 +1,14 @@
 package ucai.cn.fulicenter.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.mcount)
     TextView mcount;
 
-    Fragment fragment;
+    DialogFragment fragment;
     NewGoodsFragment newGoodsFragment;
     BoutiqueFragment boutiqueFragment;
 
@@ -52,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -63,29 +62,19 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({R.id.mboutique, R.id.mcategory, R.id.mnew_good, R.id.mpersonal_center, R.id.mcar, R.id.mcount})
     public void onClick(View view) {
+        if (fragment == null) {
+            fragment = new NewGoodsFragment();
+        }
         switch (view.getId()) {
             case R.id.mboutique:
-                if (fragment==null) {
-                    fragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }else {
-                    fragment=null;
-                    fragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }
+                fragment = new BoutiqueFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
                 break;
             case R.id.mcategory:
                 break;
             case R.id.mnew_good:
-
-                if (fragment==null) {
-                    fragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }else {
-                    fragment=null;
-                    fragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }
+                fragment = new NewGoodsFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
                 break;
             case R.id.mpersonal_center:
                 break;

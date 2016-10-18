@@ -2,6 +2,7 @@ package ucai.cn.fulicenter.fragment;
 
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -34,7 +35,7 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewGoodsFragment extends Fragment {
+public class NewGoodsFragment extends DialogFragment {
 
 
     @Bind(R.id.refresh)
