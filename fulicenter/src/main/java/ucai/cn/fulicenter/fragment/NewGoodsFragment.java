@@ -136,6 +136,7 @@ public class NewGoodsFragment extends Fragment {
                             break;
                     }
                 }else {
+                    swipe.setRefreshing(false);
                     goodadapter.setIsmore(false);
                 }
             }

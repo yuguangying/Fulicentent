@@ -96,16 +96,6 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/nopic" />
 
-
-
-    <TextView
-        android:id="@+id/brief_introduction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/flowIndicator"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="kdsajkfklsdjfk" />
     <ucai.cn.fulicenter.views.FlowIndicator
         android:layout_below="@+id/goods_iv"
         android:id="@+id/flowIndicator"
@@ -118,4 +108,15 @@
         apps:r="10dp"
         apps:space="3dp"
         />
+
+    <TextView
+        android:id="@+id/brief_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/flowIndicator"
+        android:layout_marginTop="30dp"
+
+        android:gravity="center"
+        android:text="kdsajkfklsdjfk" />
+
 </RelativeLayout>
