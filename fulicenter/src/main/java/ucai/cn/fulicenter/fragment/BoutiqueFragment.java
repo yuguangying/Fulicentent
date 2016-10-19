@@ -19,6 +19,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.Boutiques2Activity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.adapter.BoutiqueAdapter;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;

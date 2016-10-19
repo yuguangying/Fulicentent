@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import ucai.cn.fulicenter.I;
+import ucai.cn.fulicenter.activity.Boutiques2Activity;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.R;
@@ -28,6 +29,12 @@ public class MFGT {
     public static void gotoGoodsDatileActivity(Context context, int goodsid){
         Intent intent = new Intent();
         intent.setClass(context,GoodsDatileActivity.class);
+        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);
+        startActivity(context,intent);
+    }
+    public static void gotoBoutiquesGoodsActivity(Context context, int goodsid){
+        Intent intent = new Intent();
+        intent.setClass(context,Boutiques2Activity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);
         startActivity(context,intent);
     }

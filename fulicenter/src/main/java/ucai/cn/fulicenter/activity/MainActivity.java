@@ -52,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> afeef3b... 精选二级页面跳转
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -66,15 +69,26 @@ public class MainActivity extends AppCompatActivity {
             fragment = new NewGoodsFragment();
         }
         switch (view.getId()) {
+
             case R.id.mboutique:
+<<<<<<< HEAD
                 fragment = new BoutiqueFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+=======
+                    fragment = new BoutiqueFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+>>>>>>> afeef3b... 精选二级页面跳转
                 break;
             case R.id.mcategory:
                 break;
             case R.id.mnew_good:
+<<<<<<< HEAD
                 fragment = new NewGoodsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+=======
+                    fragment = new NewGoodsFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+>>>>>>> afeef3b... 精选二级页面跳转
                 break;
             case R.id.mpersonal_center:
                 break;

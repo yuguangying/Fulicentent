@@ -27,7 +27,7 @@
             android:layout_toRightOf="@id/back"
             android:text="商品详情"
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="40sp" />
 
         <ImageView
             android:id="@+id/share"
