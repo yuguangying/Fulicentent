@@ -50,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
     }
-
-
-
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -64,28 +59,16 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.mboutique, R.id.mcategory, R.id.mnew_good, R.id.mpersonal_center, R.id.mcar, R.id.mcount})
     public void onClick(View view) {
         switch (view.getId()) {
+
             case R.id.mboutique:
-                if (fragment==null) {
                     fragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }else {
-                    fragment=null;
-                    fragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
                 break;
             case R.id.mcategory:
                 break;
             case R.id.mnew_good:
-
-                if (fragment==null) {
                     fragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }else {
-                    fragment=null;
-                    fragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().add(R.id.mfragment_main, fragment).show(fragment).commit();
-                }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
                 break;
             case R.id.mpersonal_center:
                 break;

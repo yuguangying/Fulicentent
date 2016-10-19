@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import okhttp3.OkHttpClient;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.Boutiques2Activity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
@@ -43,7 +44,7 @@ public class NewGoodsFragment extends Fragment {
     RecyclerView recycler;
     @Bind(R.id.swipe)
     SwipeRefreshLayout swipe;
-    MainActivity mcontext;
+    Boutiques2Activity mcontext;
     GoodsAdapter goodadapter;
     ArrayList<NewGoodsBeanFive> goodslist;
     int pagId = 1;
@@ -112,7 +113,7 @@ public class NewGoodsFragment extends Fragment {
 
 
     private void initData() {
-        GoodsDao.downloadNewGoods(mcontext, pagId,action, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
+        GoodsDao.downloadNewGoods(mcontext, pagId,action,I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
                 if (result!=null&&result.length>0){
@@ -154,7 +155,7 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initView() {
-        mcontext = (MainActivity) getContext();
+        mcontext = (Boutiques2Activity) getContext();
         goodslist = new ArrayList<>();
         goodadapter = new GoodsAdapter(mcontext,goodslist);
         //给刷新的圆圈设置渐变的颜色
