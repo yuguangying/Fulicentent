@@ -53,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> afeef3b... 精选二级页面跳转
 =======
 >>>>>>> afeef3b... 精选二级页面跳转
     @Override
@@ -72,8 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.mboutique:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 fragment = new BoutiqueFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+=======
+                    fragment = new BoutiqueFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+>>>>>>> afeef3b... 精选二级页面跳转
 =======
                     fragment = new BoutiqueFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
@@ -83,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.mnew_good:
 <<<<<<< HEAD
+<<<<<<< HEAD
                 fragment = new NewGoodsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+=======
+                    fragment = new NewGoodsFragment();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+>>>>>>> afeef3b... 精选二级页面跳转
 =======
                     fragment = new NewGoodsFragment();
                     getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
