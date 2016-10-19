@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.mcount)
     TextView mcount;
 
-    Fragment fragment;
-    NewGoodsFragment newGoodsFragment;
-    BoutiqueFragment boutiqueFragment;
 
     int index;int currIndex=8;
     Fragment[] fragments = new Fragment[9];

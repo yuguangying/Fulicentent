@@ -25,11 +25,27 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/boutiques_goods"
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_boutiques">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/refresh_boutiques"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/now_refresh"
+                android:visibility="gone"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_boutiques">
 
-    </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

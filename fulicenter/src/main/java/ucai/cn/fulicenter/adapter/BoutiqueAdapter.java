@@ -27,6 +27,7 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     ArrayList<BoutiqueBean> boutiqueList;
     boolean isMore;
     Context context;
+    String title;
 
     public boolean isMore() {
         return isMore;
@@ -69,7 +70,8 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         boutiqueholder.mname.setText(boutiquebean.getName());
         boutiqueholder.mdescription.setText(boutiquebean.getDescription());
         ImageLoader.downloadImg(context, boutiqueholder.mivBoutiques, boutiquebean.getImageurl());
-        boutiqueholder.boutiques_goods.setTag(boutiquebean.getId());
+        boutiqueholder.boutiques_goods.setTag(boutiquebean.getId()+":"+boutiquebean.getTitle());
+
     }
 
     @Override
@@ -132,9 +134,12 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
 
         @OnClick(R.id.item_boutiques_goods)
         public void boutiquesLei() {
-            Log.i("main", "boutiquesLei: ");
-            int goodsId = (int) boutiques_goods.getTag();
-            MFGT.gotoBoutiquesGoodsActivity(context, goodsId);
+            String str = (String) boutiques_goods.getTag();
+            Log.i("main", "boutiquesLei: "+str);
+            String[] split = str.split(":");
+            int goodsId = Integer.parseInt(split[0]);
+            title = split[split.length-1];
+            MFGT.gotoBoutiquesGoodsActivity(context, goodsId,title);
         }
 
     }
