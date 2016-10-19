@@ -44,7 +44,7 @@ public class NewGoodsFragment extends Fragment {
     RecyclerView recycler;
     @Bind(R.id.swipe)
     SwipeRefreshLayout swipe;
-    Boutiques2Activity mcontext;
+    MainActivity mcontext;
     GoodsAdapter goodadapter;
     ArrayList<NewGoodsBeanFive> goodslist;
     int pagId = 1;
@@ -155,7 +155,7 @@ public class NewGoodsFragment extends Fragment {
     }
 
     private void initView() {
-        mcontext = (Boutiques2Activity) getContext();
+        mcontext = (MainActivity) getContext();
         goodslist = new ArrayList<>();
         goodadapter = new GoodsAdapter(mcontext,goodslist);
         //给刷新的圆圈设置渐变的颜色

@@ -14,6 +14,7 @@
         android:layout_toRightOf="@id/miv_boutiques"
         android:layout_width="match_parent"
         android:layout_height="220dp"
+
         android:orientation="vertical">
         <TextView
             android:id="@+id/mtitle"
@@ -21,16 +22,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="商品名称"
+            android:textColor="@color/list_item_title"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/mdescription"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/list_item_name"
             android:text="商品名称"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/mname"
+            android:textColor="@color/list_item_des"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

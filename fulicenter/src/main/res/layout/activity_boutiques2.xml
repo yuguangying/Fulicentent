@@ -25,11 +25,11 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
     </RelativeLayout>
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/boutiques_goods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-    </RelativeLayout>
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

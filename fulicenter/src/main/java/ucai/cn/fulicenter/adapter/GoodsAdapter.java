@@ -105,7 +105,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
 
 
 
-    static class FootViewHolder extends RecyclerView.ViewHolder {
+    class FootViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.foot)
         TextView foot;
 

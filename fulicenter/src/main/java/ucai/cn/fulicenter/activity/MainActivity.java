@@ -2,6 +2,7 @@ package ucai.cn.fulicenter.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -44,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
     NewGoodsFragment newGoodsFragment;
     BoutiqueFragment boutiqueFragment;
 
+    int index;int currIndex=8;
+    Fragment[] fragments = new Fragment[9];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        fragments[2] = new NewGoodsFragment();
+        fragments[0] = new BoutiqueFragment();
     }
     @Override
     protected void onDestroy() {
@@ -59,21 +65,35 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.mboutique, R.id.mcategory, R.id.mnew_good, R.id.mpersonal_center, R.id.mcar, R.id.mcount})
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.mboutique:
-                    fragment = new BoutiqueFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+                index=0;
                 break;
             case R.id.mcategory:
+                index=1;
                 break;
             case R.id.mnew_good:
-                    fragment = new NewGoodsFragment();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.mfragment_main, fragment).show(fragment).commit();
+                index=2;
                 break;
             case R.id.mpersonal_center:
+                index=3;
                 break;
             case R.id.mcar:
+                index=4;
                 break;
         }
+        setFragment();
+    }
+    public void setFragment(){
+        if (index!=currIndex){
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            if (currIndex<5){
+                ft.hide(fragments[currIndex]);
+            }
+            if (!fragments[index].isAdded()){
+                ft.add(R.id.mfragment_main,fragments[index]);
+            }
+            ft.show(fragments[index]).commit();
+        }
+        currIndex = index;
     }
 }
