@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.fragment.BoutiqueFragment;
+import ucai.cn.fulicenter.fragment.CategoryFragment;
 import ucai.cn.fulicenter.fragment.NewGoodsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         fragments[2] = new NewGoodsFragment();
         fragments[0] = new BoutiqueFragment();
+        fragments[1] = new CategoryFragment();
     }
 
 

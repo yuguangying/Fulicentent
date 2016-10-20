@@ -4,6 +4,8 @@ import android.content.Context;
 
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.bean.BoutiqueBean;
+import ucai.cn.fulicenter.bean.CategoryChildBean;
+import ucai.cn.fulicenter.bean.CategoryGroupBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
@@ -26,7 +28,19 @@ public class GoodsDao {
                 .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
                 .targetClass(GoodsDetailsBean.class)
                 .execute(listener);
-
+    }
+    public static void downloadCategoryGroup(Context context,OkHttpUtils.OnCompleteListener<CategoryGroupBean[]> listener){
+        OkHttpUtils<CategoryGroupBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl(I.REQUEST_FIND_CATEGORY_GROUP)
+                .targetClass(CategoryGroupBean[].class)
+                .execute(listener);
+    }
+    public static void downloadCategoryChild(Context context,int parent_id,OkHttpUtils.OnCompleteListener<CategoryChildBean[]> listener){
+        OkHttpUtils<CategoryChildBean[]> utils = new OkHttpUtils<>(context);
+        utils.setRequestUrl("findCategoryChildren")
+                .addParam("parent_id",parent_id+"")
+                .targetClass(CategoryChildBean[].class)
+                .execute(listener);
     }
 
 }
