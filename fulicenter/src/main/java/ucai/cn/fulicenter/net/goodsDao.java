@@ -19,7 +19,6 @@ public class GoodsDao {
                 .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
                 .targetClass(NewGoodsBeanFive[].class)
                 .execute(listener);
-
     }
     public static void downloadGoodsDataile(Context context,int goodsid,OkHttpUtils.OnCompleteListener<GoodsDetailsBean> listener){
         OkHttpUtils<GoodsDetailsBean> utils = new OkHttpUtils<>(context);

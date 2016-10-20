@@ -25,6 +25,7 @@
             android:textColor="@color/white"
             android:textSize="40sp" />
     </RelativeLayout>
+<<<<<<< HEAD
     <RelativeLayout
         android:id="@+id/boutiques_goods"
         android:layout_width="match_parent"
@@ -32,4 +33,29 @@
         >
 
     </RelativeLayout>
+=======
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_boutiques">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/refresh_boutiques"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/now_refresh"
+                android:visibility="gone"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_boutiques">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+>>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
 </LinearLayout>

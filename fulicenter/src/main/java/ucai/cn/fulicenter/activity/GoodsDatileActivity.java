@@ -27,7 +27,7 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.views.FlowIndicator;
 import ucai.cn.fulicenter.views.SlideAutoLoopView;
 
-public class GoodsDatileActivity extends AppCompatActivity {
+public class GoodsDatileActivity extends BaseActivity {
 
     @Bind(R.id.back)
     ImageView back;
@@ -56,29 +56,27 @@ public class GoodsDatileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_datile);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         goodsid = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
-        Toast.makeText(GoodsDatileActivity.this, goodsid + "", Toast.LENGTH_SHORT).show();
         if (goodsid == 0) {
             finish();
         }
         context = this;
-        initView();
-        initData();
-        setListener();
+        super.onCreate(savedInstanceState);
     }
 
-    private void setListener() {
+    @Override
+    protected void setListener() {
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         GoodsDao.downloadGoodsDataile(context, goodsid, new OkHttpUtils.OnCompleteListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean result) {
-                if (result==null){
+                if (result == null) {
                     finish();
                 }
                 showGoodsDatile(result);
@@ -119,7 +117,8 @@ public class GoodsDatileActivity extends AppCompatActivity {
         return util;
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
     }
 
     @OnClick({R.id.back, R.id.share, R.id.like, R.id.add_car})

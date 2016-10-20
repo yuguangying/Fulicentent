@@ -22,9 +22,7 @@ import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.Boutiques2Activity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.adapter.BoutiqueAdapter;
-import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.BoutiqueBean;
-import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.net.BoutiqueDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ConvertUtils;
@@ -34,7 +32,11 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
+<<<<<<< HEAD
 public class BoutiqueFragment extends DialogFragment {
+=======
+public class BoutiqueFragment extends BaseFragment {
+>>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
 
     @Bind(R.id.refresh)
     TextView refresh;
@@ -46,7 +48,7 @@ public class BoutiqueFragment extends DialogFragment {
     ArrayList<BoutiqueBean> bouList;
     BoutiqueAdapter boutiqueAdaper;
     GridLayoutManager glm;
-    int pagId=1;
+    int pagId = 1;
     int action;
 
     public BoutiqueFragment() {
@@ -60,32 +62,32 @@ public class BoutiqueFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, view);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return view;
     }
 
-    private void setListener() {
+    @Override
+    protected void setListener() {
         ActionPullDown();
         ActionPullUp();
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         downloadBoutique();
     }
 
     private void downloadBoutique() {
-        BoutiqueDao.downloadNewGoods(mcontext,pagId,action, new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
+        BoutiqueDao.downloadNewGoods(mcontext, pagId, action, new OkHttpUtils.OnCompleteListener<BoutiqueBean[]>() {
             @Override
             public void onSuccess(BoutiqueBean[] result) {
-                if (result!=null&&result.length>0){
+                if (result != null && result.length > 0) {
                     ArrayList<BoutiqueBean> list = ConvertUtils.array2List(result);
                     boutiqueAdaper.setMore(true);
-                    if (list.size()<I.PAGE_SIZE_DEFAULT){
+                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         boutiqueAdaper.setMore(false);
                     }
-                    switch (action){
+                    switch (action) {
                         case I.ACTION_DOWNLOAD:
                             boutiqueAdaper.initDataDown(list);
                             break;
@@ -99,7 +101,7 @@ public class BoutiqueFragment extends DialogFragment {
                             boutiqueAdaper.addData(list);
                             break;
                     }
-                }else {
+                } else {
                     boutiqueAdaper.setMore(false);
                 }
             }
@@ -117,11 +119,12 @@ public class BoutiqueFragment extends DialogFragment {
     private void ActionPullUp() {
         recycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
             int lastpostion;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 lastpostion = glm.findLastVisibleItemPosition();
-                if (lastpostion>=boutiqueAdaper.getItemCount()-1&&newState==RecyclerView.SCROLL_STATE_IDLE&&boutiqueAdaper.isMore()){
+                if (lastpostion >= boutiqueAdaper.getItemCount() - 1 && newState == RecyclerView.SCROLL_STATE_IDLE && boutiqueAdaper.isMore()) {
                     pagId++;
                     action = I.ACTION_PULL_UP;
                     initData();
@@ -136,6 +139,7 @@ public class BoutiqueFragment extends DialogFragment {
             }
         });
     }
+
     private void ActionPullDown() {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -149,10 +153,12 @@ public class BoutiqueFragment extends DialogFragment {
             }
         });
     }
-    private void initView() {
+
+    @Override
+    protected void initView() {
         mcontext = (MainActivity) getContext();
         bouList = new ArrayList<>();
-        boutiqueAdaper = new BoutiqueAdapter(mcontext,bouList);
+        boutiqueAdaper = new BoutiqueAdapter(mcontext, bouList);
         //给刷新的圆圈设置渐变的颜色
         swipe.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
