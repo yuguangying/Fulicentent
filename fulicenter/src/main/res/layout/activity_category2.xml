@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+
+        android:id="@+id/lltitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_orange"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back" />
+
+        <ucai.cn.fulicenter.views.CatChildFilterButton
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ye_miang_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/main_orange"
+            android:text="没涨"
+            android:drawableRight="@mipmap/arrow2_up"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/orange">
+        <RadioButton
+            android:id="@+id/price_lei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="价格"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/arrow_order_down"
+            android:padding="5dp"
+            />
+        <RadioButton
+            android:id="@+id/time_lei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="上架时间"
+            android:textSize="30sp"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/arrow_order_down"
+            android:padding="5dp"
+            />
+    </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_boutiques">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/refresh_boutiques"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/now_refresh"
+                android:visibility="gone"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recycler_boutiques">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

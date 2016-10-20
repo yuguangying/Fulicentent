@@ -20,10 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GoodsDatileActivity" />
-
         <activity android:name=".activity.Boutiques2Activity" />
-        <activity android:name=".activity.BaseActivity"/>
-
+        <activity android:name=".activity.BaseActivity" />
+        <activity android:name=".activity.Category2Activity"></activity>
     </application>
 
 </manifest>

@@ -61,22 +61,18 @@ public class CategoryFragment extends BaseFragment {
                 if (result != null && result.length > 0) {
                     ArrayList<CategoryGroupBean> categoryGroup = ConvertUtils.array2List(result);
                     mGroupList.addAll(categoryGroup);
-                    Log.i("main", "onSuccess:mGroupList "+mGroupList.size());
                     for (;index<mGroupList.size();index++) {
-                        mChildList.add(new ArrayList<CategoryChildBean>());
                         GoodsDao.downloadCategoryChild(mContext, mGroupList.get(index).getId(), new OkHttpUtils.OnCompleteListener<CategoryChildBean[]>() {
                             @Override
                             public void onSuccess(CategoryChildBean[] result) {
                                 if (result != null && result.length > 0) {
                                     Grouplist++;
                                     ArrayList<CategoryChildBean> categoryGroupBeen = ConvertUtils.array2List(result);
-                                    mChildList.set(index-1,categoryGroupBeen);
+                                    mChildList.add(categoryGroupBeen);
                                 }
                                 if (Grouplist==mGroupList.size()){
-                                    Log.i("main", "onSuccess:mChildList "+mChildList.size());
                                     mcategoryAdapter.initData(mGroupList,mChildList);
                                 }
-
                             }
 
                             @Override

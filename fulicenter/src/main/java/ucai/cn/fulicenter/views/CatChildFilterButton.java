@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ucai.cn.fulicenter.CategoryChildActivity;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.Category2Activity;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
@@ -127,11 +127,11 @@ public class CatChildFilterButton extends Button {
         public View getView(int position, View layout, final ViewGroup parent) {
             ViewChildHolder holder=null;
             if(layout==null){
-//                layout= View.inflate(context, R.layout.item_cat_filter, null);
-//                holder=new ViewChildHolder();
-//                holder.layoutItem=(RelativeLayout) layout.findViewById(R.id.layout_category_child);
-//                holder.ivThumb=(ImageView) layout.findViewById(R.id.ivCategoryChildThumb);
-//                holder.tvChildName=(TextView) layout.findViewById(R.id.tvCategoryChildName);
+                layout= View.inflate(context, R.layout.item_cat_filter, null);
+                holder=new ViewChildHolder();
+                holder.layoutItem=(RelativeLayout) layout.findViewById(R.id.layout_category_child);
+                holder.ivThumb=(ImageView) layout.findViewById(R.id.ivCategoryChildThumb);
+                holder.tvChildName=(TextView) layout.findViewById(R.id.tvCategoryChildName);
                 layout.setTag(holder);
             }else{
                 holder=(ViewChildHolder) layout.getTag();
@@ -148,12 +148,12 @@ public class CatChildFilterButton extends Button {
                     if(mPopupWindow.isShowing()){
                         mPopupWindow.dismiss();
                     }
-                    Intent intent=new Intent(mContext, CategoryChildActivity.class);
+                    Intent intent=new Intent(mContext, Category2Activity.class);
                     intent.putExtra(I.CategoryChild.CAT_ID, child.getId());
                     intent.putExtra("childList", Children);
                     intent.putExtra(I.CategoryGroup.NAME, mbtnTop.getText().toString());
                     mContext.startActivity(intent);
-//                    ((CategoryChildActivity)mContext).finish();
+                    ((Category2Activity)mContext).finish();
                 }
             });
             return layout;

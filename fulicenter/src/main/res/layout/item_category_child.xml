@@ -7,7 +7,8 @@
     android:layout_marginTop="10dp"
     android:background="@drawable/divid_explist_group"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:id="@+id/child_ll">
 
     <TextView
         android:id="@+id/tv_child_name"
