@@ -35,7 +35,7 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewGoodsFragment extends Fragment {
+public class NewGoodsFragment extends BaseFragment {
 
 
     @Bind(R.id.refresh)
@@ -63,13 +63,12 @@ public class NewGoodsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_goods, container, false);
         ButterKnife.bind(this, view);
-        initView();
-        initData();
-        setListener();
+        super.onCreateView(inflater,container,savedInstanceState);
         return view;
     }
 
-    private void setListener() {
+    @Override
+    protected void setListener() {
         ActionPullDown();
         ActionPullUp();
     }
@@ -77,11 +76,12 @@ public class NewGoodsFragment extends Fragment {
     private void ActionPullUp() {
         recycler.setOnScrollListener(new RecyclerView.OnScrollListener() {
             int lastpostion;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 lastpostion = glm.findLastVisibleItemPosition();
-                if (lastpostion>=goodadapter.getItemCount()-1&&newState==RecyclerView.SCROLL_STATE_IDLE&&goodadapter.ismore()){
+                if (lastpostion >= goodadapter.getItemCount() - 1 && newState == RecyclerView.SCROLL_STATE_IDLE && goodadapter.ismore()) {
                     pagId++;
                     action = I.ACTION_PULL_UP;
                     initData();
@@ -111,18 +111,18 @@ public class NewGoodsFragment extends Fragment {
         });
     }
 
-
-    private void initData() {
-        GoodsDao.downloadNewGoods(mcontext, pagId,action,I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
+    @Override
+    protected void initData() {
+        GoodsDao.downloadNewGoods(mcontext, pagId, action, I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
-                if (result!=null&&result.length>0){
+                if (result != null && result.length > 0) {
                     ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
                     goodadapter.setIsmore(true);
-                    if (list.size()<I.PAGE_SIZE_DEFAULT){
+                    if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         goodadapter.setIsmore(false);
                     }
-                    switch (action){
+                    switch (action) {
                         case I.ACTION_DOWNLOAD:
                             goodadapter.initDataDown(list);
                             break;
@@ -136,7 +136,7 @@ public class NewGoodsFragment extends Fragment {
                             goodadapter.addData(list);
                             break;
                     }
-                }else {
+                } else {
                     swipe.setRefreshing(false);
                     goodadapter.setIsmore(false);
                 }
@@ -154,10 +154,11 @@ public class NewGoodsFragment extends Fragment {
 
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         mcontext = (MainActivity) getContext();
         goodslist = new ArrayList<>();
-        goodadapter = new GoodsAdapter(mcontext,goodslist);
+        goodadapter = new GoodsAdapter(mcontext, goodslist);
         //给刷新的圆圈设置渐变的颜色
         swipe.setColorSchemeColors(
                 getResources().getColor(R.color.google_blue),
@@ -171,7 +172,7 @@ public class NewGoodsFragment extends Fragment {
         //适配
         recycler.setHasFixedSize(true);
         recycler.setAdapter(goodadapter);
-        
+
     }
 
     @Override
