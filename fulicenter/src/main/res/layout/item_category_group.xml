@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/divid_explist_group"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:id="@+id/tv_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="饰物"
+        android:textSize="20sp"
+        android:layout_gravity="center_vertical"/>
+    <ImageView
+        android:id="@+id/iv_group_thumb"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/white"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nopic"
+        android:layout_gravity="center_vertical"/>
+
+<TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"/>
+    <ImageView
+        android:id="@+id/iv_indicator"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/expand_on"
+        />
+</LinearLayout>
