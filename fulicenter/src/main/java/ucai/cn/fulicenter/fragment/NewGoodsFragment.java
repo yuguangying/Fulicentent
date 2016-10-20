@@ -2,25 +2,19 @@ package ucai.cn.fulicenter.fragment;
 
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import okhttp3.OkHttpClient;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.Boutiques2Activity;
@@ -36,11 +30,11 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-<<<<<<< HEAD
-public class NewGoodsFragment extends DialogFragment {
-=======
+
+
+
 public class NewGoodsFragment extends BaseFragment {
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
 
 
     @Bind(R.id.refresh)
@@ -49,7 +43,7 @@ public class NewGoodsFragment extends BaseFragment {
     RecyclerView recycler;
     @Bind(R.id.swipe)
     SwipeRefreshLayout swipe;
-    Boutiques2Activity mcontext;
+    MainActivity mcontext;
     GoodsAdapter goodadapter;
     ArrayList<NewGoodsBeanFive> goodslist;
     int pagId = 1;
@@ -116,15 +110,13 @@ public class NewGoodsFragment extends BaseFragment {
         });
     }
 
-<<<<<<< HEAD
 
-    private void initData() {
-        GoodsDao.downloadNewGoods(mcontext, pagId,action,I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
-=======
+
+
     @Override
     protected void initData() {
         GoodsDao.downloadNewGoods(mcontext, pagId, action, I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
                 if (result != null && result.length > 0) {
@@ -165,14 +157,12 @@ public class NewGoodsFragment extends BaseFragment {
 
     }
 
-<<<<<<< HEAD
-    private void initView() {
-        mcontext = (Boutiques2Activity) getContext();
-=======
+
+
     @Override
     protected void initView() {
         mcontext = (MainActivity) getContext();
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
         goodslist = new ArrayList<>();
         goodadapter = new GoodsAdapter(mcontext, goodslist);
         //给刷新的圆圈设置渐变的颜色

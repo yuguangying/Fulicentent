@@ -27,10 +27,9 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
     ArrayList<BoutiqueBean> boutiqueList;
     boolean isMore;
     Context context;
-<<<<<<< HEAD
-=======
+
     String title;
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
 
     public boolean isMore() {
         return isMore;
@@ -73,12 +72,9 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         boutiqueholder.mname.setText(boutiquebean.getName());
         boutiqueholder.mdescription.setText(boutiquebean.getDescription());
         ImageLoader.downloadImg(context, boutiqueholder.mivBoutiques, boutiquebean.getImageurl());
-<<<<<<< HEAD
-        boutiqueholder.boutiques_goods.setTag(boutiquebean.getId());
-=======
         boutiqueholder.boutiques_goods.setTag(boutiquebean.getId()+":"+boutiquebean.getTitle());
 
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
     }
 
     @Override
@@ -141,18 +137,14 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
 
         @OnClick(R.id.item_boutiques_goods)
         public void boutiquesLei() {
-<<<<<<< HEAD
-            Log.i("main", "boutiquesLei: ");
-            int goodsId = (int) boutiques_goods.getTag();
-            MFGT.gotoBoutiquesGoodsActivity(context, goodsId);
-=======
+
             String str = (String) boutiques_goods.getTag();
             Log.i("main", "boutiquesLei: "+str);
             String[] split = str.split(":");
             int goodsId = Integer.parseInt(split[0]);
             title = split[split.length-1];
             MFGT.gotoBoutiquesGoodsActivity(context, goodsId,title);
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
         }
 
     }

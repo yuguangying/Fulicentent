@@ -3,13 +3,12 @@ package ucai.cn.fulicenter.net;
 import android.content.Context;
 
 import ucai.cn.fulicenter.I;
+import ucai.cn.fulicenter.bean.BoutiqueBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
-/**
- * Created by Administrator on 2016/10/18.
- */
+
 public class GoodsDao {
     public static void downloadNewGoods(Context context, int pagId, int action,int cat_Id, OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]> listener){
         OkHttpUtils<NewGoodsBeanFive[]> utils = new OkHttpUtils<>(context);
@@ -20,6 +19,7 @@ public class GoodsDao {
                 .targetClass(NewGoodsBeanFive[].class)
                 .execute(listener);
     }
+
     public static void downloadGoodsDataile(Context context,int goodsid,OkHttpUtils.OnCompleteListener<GoodsDetailsBean> listener){
         OkHttpUtils<GoodsDetailsBean> utils = new OkHttpUtils<>(context);
         utils.setRequestUrl(I.REQUEST_FIND_GOOD_DETAILS)
@@ -28,4 +28,5 @@ public class GoodsDao {
                 .execute(listener);
 
     }
+
 }

@@ -32,18 +32,17 @@ public class MFGT {
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);
         startActivity(context,intent);
     }
-<<<<<<< HEAD
+
     public static void gotoBoutiquesGoodsActivity(Context context, int goodsid){
         Intent intent = new Intent();
         intent.setClass(context,Boutiques2Activity.class);
-        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);
-=======
+        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);}
     public static void gotoBoutiquesGoodsActivity(Context context, int goodsid,String title){
         Intent intent = new Intent();
         intent.setClass(context,Boutiques2Activity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID,goodsid);
         intent.putExtra("title",title);
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
         startActivity(context,intent);
     }
     public static void startActivity(Context context,Intent intent){

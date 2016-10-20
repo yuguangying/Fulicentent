@@ -2,17 +2,12 @@ package ucai.cn.fulicenter.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,7 +17,6 @@ import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.AlbumsBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.net.GoodsDao;
-import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.views.FlowIndicator;
 import ucai.cn.fulicenter.views.SlideAutoLoopView;

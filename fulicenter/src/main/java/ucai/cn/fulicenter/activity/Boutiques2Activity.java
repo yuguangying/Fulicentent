@@ -1,32 +1,14 @@
 package ucai.cn.fulicenter.activity;
 
-<<<<<<< HEAD
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 
 import ucai.cn.fulicenter.I;
-import ucai.cn.fulicenter.R;
-import ucai.cn.fulicenter.fragment.NewGoodsFragment;
-
-public class Boutiques2Activity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_boutiques2);
-        int intExtra = getIntent().getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
-        Log.i("main", "onCreate: "+intExtra);
-        Fragment fragment = new NewGoodsFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.boutiques_goods, fragment).show(fragment).commit();
-=======
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,7 +18,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import ucai.cn.fulicenter.I;
+
+
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
@@ -45,6 +28,9 @@ import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
+
+
+
 
 public class Boutiques2Activity extends BaseActivity {
 
@@ -124,7 +110,6 @@ public class Boutiques2Activity extends BaseActivity {
     protected void initView() {
         goodslist = new ArrayList<>();
         goodsadapter = new GoodsAdapter(this, goodslist);
-
         //设置了两列
         glm = new GridLayoutManager(this, I.COLUM_NUM);
         recycler.setLayoutManager(glm);
@@ -185,6 +170,6 @@ public class Boutiques2Activity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
     }
 }

@@ -20,12 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.GoodsDatileActivity" />
-<<<<<<< HEAD
-        <activity android:name=".activity.Boutiques2Activity"></activity>
-=======
+
         <activity android:name=".activity.Boutiques2Activity" />
-        <activity android:name=".activity.BaseActivity"></activity>
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+        <activity android:name=".activity.BaseActivity"/>
+
     </application>
 
 </manifest>

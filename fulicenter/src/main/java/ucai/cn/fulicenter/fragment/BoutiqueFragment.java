@@ -32,11 +32,10 @@ import ucai.cn.fulicenter.utils.OkHttpUtils;
 /**
  * A simple {@link Fragment} subclass.
  */
-<<<<<<< HEAD
-public class BoutiqueFragment extends DialogFragment {
-=======
+
+
 public class BoutiqueFragment extends BaseFragment {
->>>>>>> 8159e355b9af60ed9e380fae8261b7c5380e68f9
+
 
     @Bind(R.id.refresh)
     TextView refresh;
