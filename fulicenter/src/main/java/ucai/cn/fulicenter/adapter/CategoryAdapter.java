@@ -11,10 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.bean.CategoryGroupBean;
@@ -110,11 +113,12 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         if (child != null) {
             ImageLoader.downloadImg(mContext, holder.ivChildThumb, child.getImageUrl());
             holder.tvChildName.setText(child.getName());
-
+            final ArrayList<CategoryChildBean> list = mChildList.get(groupPosition);
+            final String groupname = mGroupList.get(groupPosition).getName();
             holder.child_ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MFGT.gotoCategoryGoodsActivity(mContext, child.getId(), mGroupList.get(groupPosition).getName());
+                    MFGT.gotoCategoryGoodsActivity(mContext, child.getId(), groupname,list);
                 }
             });
         }
@@ -168,4 +172,5 @@ public class CategoryAdapter extends BaseExpandableListAdapter {
         }
 
     }
+
 }

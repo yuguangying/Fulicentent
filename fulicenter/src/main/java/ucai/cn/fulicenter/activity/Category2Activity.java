@@ -1,6 +1,7 @@
 package ucai.cn.fulicenter.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,17 +19,17 @@ import butterknife.OnClick;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.adapter.GoodsAdapter;
+import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
+import ucai.cn.fulicenter.views.CatChildFilterButton;
 
 public class Category2Activity extends BaseActivity {
 
-    @Bind(R.id.ye_miang_name)
-    TextView yeMiang;
     @Bind(R.id.refresh_boutiques)
     TextView refreshCategory;
     @Bind(R.id.recycler_boutiques)
@@ -46,6 +47,12 @@ public class Category2Activity extends BaseActivity {
     RadioButton priceLei;
     @Bind(R.id.time_lei)
     RadioButton timeLei;
+    boolean price, addtime;
+    int sort = I.SORT_BY_PRICE_ASC;
+    ArrayList<CategoryChildBean> list;
+    String title;
+    @Bind(R.id.ye_miang_name)
+    CatChildFilterButton yeMiangName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,9 @@ public class Category2Activity extends BaseActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         carId = intent.getIntExtra(I.GoodsDetails.KEY_GOODS_ID, 0);
-        yeMiang.setText(intent.getStringExtra("title"));
+        title = intent.getStringExtra("title");
+        list = (ArrayList<CategoryChildBean>) intent.getSerializableExtra("list");
+        yeMiangName.setText(title);
         super.onCreate(savedInstanceState);
     }
 
@@ -141,6 +150,7 @@ public class Category2Activity extends BaseActivity {
                 CommonUtils.showShortToast(error);
             }
         });
+        yeMiangName.setOnCatFilterClickListener(title,list);
     }
 
     @Override
@@ -156,19 +166,41 @@ public class Category2Activity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.back, R.id.ye_miang_name})
+    @OnClick({R.id.back, R.id.price_lei, R.id.time_lei})
     public void onClick(View view) {
+        Drawable right;
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
-            case R.id.ye_miang_name:
-                break;
             case R.id.price_lei:
+                if (price) {
+                    sort = I.SORT_BY_PRICE_ASC;
+                    right = getResources().getDrawable(R.mipmap.arrow_order_up);
+                } else {
+                    sort = I.SORT_BY_PRICE_DESC;
+                    right = getResources().getDrawable(R.mipmap.arrow_order_down);
+                }
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                priceLei.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
+                price = !price;
                 break;
             case R.id.time_lei:
+                Log.i("main", "onClick: ");
+                if (addtime) {
+                    sort = I.SORT_BY_ADDTIME_ASC;
+                    right = getResources().getDrawable(R.mipmap.arrow_order_up);
+                } else {
+                    sort = I.SORT_BY_ADDTIME_DESC;
+                    right = getResources().getDrawable(R.mipmap.arrow_order_down);
+                }
+                right.setBounds(0, 0, right.getIntrinsicWidth(), right.getIntrinsicHeight());
+                priceLei.setCompoundDrawablesWithIntrinsicBounds(null, null, right, null);
+                addtime = !addtime;
                 break;
         }
+        goodsadapter.setSort(sort);
     }
+
 
 }

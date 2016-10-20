@@ -49,18 +49,18 @@ public class CatChildFilterButton extends Button {
         super(context, attrs);
         mContext=context;
         mbtnTop=this;
-        mExpandOff=true;
+        mExpandOff=!mExpandOff;
         initGridView();
     }
 
     private void initPopupWindow() {
         mPopupWindow=new PopupWindow();
         mPopupWindow.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
-        if(mgvCategory.getAdapter().getCount()<16){
+        //if(mgvCategory.getAdapter().getCount()<16){
             mPopupWindow.setHeight(LinearLayout.LayoutParams.WRAP_CONTENT);
-        }else{
-            mPopupWindow.setHeight(ConvertUtils.px2dp(mContext, 200));
-        }
+//        }else{
+//            mPopupWindow.setHeight(ConvertUtils.px2dp(mContext, 200));
+//        }
         mPopupWindow.setTouchable(true);
         mPopupWindow.setOutsideTouchable(true);
         mPopupWindow.setBackgroundDrawable(new ColorDrawable(0xbb000000));
@@ -149,9 +149,9 @@ public class CatChildFilterButton extends Button {
                         mPopupWindow.dismiss();
                     }
                     Intent intent=new Intent(mContext, Category2Activity.class);
-                    intent.putExtra(I.CategoryChild.CAT_ID, child.getId());
-                    intent.putExtra("childList", Children);
-                    intent.putExtra(I.CategoryGroup.NAME, mbtnTop.getText().toString());
+                    intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, child.getId());
+                    intent.putExtra("list", Children);
+                    intent.putExtra("title", mbtnTop.getText().toString());
                     mContext.startActivity(intent);
                     ((Category2Activity)mContext).finish();
                 }
