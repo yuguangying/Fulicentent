@@ -27,8 +27,10 @@ public class MFGT {
     public static void gotoMainActivity(Activity context) {
         startActivity(context, MainActivity.class);
     }
-    public static void gotoRegisterActivity(Activity context) {
-        startActivity(context, RegisterActivity.class);
+    public static void gotoRegisterActivity(Activity context,Class<?> cls) {
+        Intent intent = new Intent();
+        intent.setClass(context, cls);
+        context.startActivityForResult(intent,110);
     }
     public static void gotoSignActivity(Activity context) {
         startActivity(context, SignInActivity.class);
@@ -47,13 +49,12 @@ public class MFGT {
         startActivity(context, intent);
     }
 
-    public static void returnSignInActivity(Context context, String name) {
+    public static void returnSignInActivity(Activity context, String name) {
         Intent intent = new Intent();
         intent.setClass(context, SignInActivity.class);
         intent.putExtra(I.User.USER_NAME, name);
-        startActivity(context,intent);
+        context.setResult(Activity.RESULT_OK,intent);
     }
-
     public static void gotoBoutiquesGoodsActivity(Context context, int goodsid, String title) {
         Intent intent = new Intent();
         intent.setClass(context, Boutiques2Activity.class);

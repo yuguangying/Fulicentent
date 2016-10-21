@@ -1,20 +1,30 @@
 package ucai.cn.fulicenter.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.bean.ResultBean;
+import ucai.cn.fulicenter.bean.UserAvatar;
+import ucai.cn.fulicenter.net.GoodsDao;
+import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.MFGT;
+import ucai.cn.fulicenter.utils.MyResultBeanUtils;
+import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -36,9 +46,18 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
-        Intent intent = getIntent();
-        if (intent != null) {
-            signInName.setText(intent.getStringExtra(I.User.USER_NAME));
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            signInName.setText(intent.getStringExtra(I.User.USER_NAME));
+//        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK){
+            String name = data.getStringExtra(I.User.USER_NAME);
+            signInName.setText(name);
         }
     }
 
@@ -50,9 +69,54 @@ public class SignInActivity extends AppCompatActivity {
                 break;
             case R.id.sign_in_button:
                 isEmpty();
+                String name = signInName.getText().toString().trim();
+                String password = signInPassword.getText().toString().trim();
+                final ProgressDialog pd = new ProgressDialog(this);
+                pd.setMessage("登录....");
+                pd.show();
+                GoodsDao.signIn(this, name, password, new OkHttpUtils.OnCompleteListener<ResultBean>() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        pd.dismiss();
+//                        if (result == null){
+//                            CommonUtils.showShortToast("登录失败");
+//                        }else {
+//                            ResultBean resultBean = MyResultBeanUtils.getResultBeanFromJson(result, ResultBean.class);
+//                            if (resultBean.getRetCode() == I.MSG_LOGIN_SUCCESS){
+//                                CommonUtils.showShortToast("登录成功");
+//                            }else if (resultBean.getRetCode() == I.MSG_LOGIN_UNKNOW_USER){
+//                                CommonUtils.showShortToast("账号不存在");
+//                            }else if (resultBean.getRetCode() == I.MSG_LOGIN_ERROR_PASSWORD){
+//                                CommonUtils.showShortToast("账户密码错误");
+//                            }
+//
+//                        }
+//
+//                    }
+
+                    @Override
+                    public void onSuccess(ResultBean result) {
+                        pd.dismiss();
+                        Log.i("main", "onSuccess: "+result.getRetCode());
+                        Log.i("main", "onSuccess: "+result.isRetMsg());
+                        if (result.getRetCode()==I.MSG_LOGIN_SUCCESS){
+                            Log.i("main", "onSuccess: ");
+                            UserAvatar user = (UserAvatar) result.getRetData();
+                            Log.i("main", "onSuccess: "+user.toString());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        pd.dismiss();
+                        CommonUtils.showLongToast("登录失败");
+                        Log.i("main", "onError: "+error);
+                    }
+                });
                 break;
             case R.id.sign_in_regiser:
-                MFGT.gotoRegisterActivity(this);
+                MFGT.gotoRegisterActivity(this,RegisterActivity.class);
                 break;
         }
     }

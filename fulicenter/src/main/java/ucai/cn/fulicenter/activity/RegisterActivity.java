@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.net.GoodsDao;
@@ -41,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Bind(R.id.register_button)
     Button registerButton;
 
-    Context mcontext;
+    RegisterActivity mcontext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,18 +78,23 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onSuccess(ResultBean result) {
                 pd.dismiss();
-                if (result.getRetCode() != 0) {
+                if (result==null) {
                     CommonUtils.showShortToast(R.string.register_fail);
-                } else if (result.isRetMsg()) {
-                    CommonUtils.showShortToast(R.string.register_success);
+                } else if (result.getRetCode()== I.MSG_REGISTER_SUCCESS) {
+                    CommonUtils.showLongToast(R.string.register_success);
                     MFGT.returnSignInActivity(mcontext, name);
+                    finish();
+                }else if (result.getRetCode() == I.MSG_REGISTER_USERNAME_EXISTS){
+                    CommonUtils.showLongToast(R.string.register_fail_exists);
+                }else if (result.getRetCode() == I.MSG_REGISTER_FAIL || result.getRetCode() == I.MSG_UNREGISTER_FAIL){
+                    CommonUtils.showLongToast(R.string.register_fail);
                 }
             }
 
             @Override
             public void onError(String error) {
                 pd.dismiss();
-                CommonUtils.showShortToast(R.string.register_fail);
+                CommonUtils.showLongToast(R.string.register_fail);
                 Log.i("main", "onError: "+error);
             }
         });
