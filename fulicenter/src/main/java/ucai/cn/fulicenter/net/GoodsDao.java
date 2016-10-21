@@ -8,6 +8,8 @@ import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.bean.CategoryGroupBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
+import ucai.cn.fulicenter.bean.ResultBean;
+import ucai.cn.fulicenter.utils.MD5;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 
@@ -48,6 +50,16 @@ public class GoodsDao {
         utils.setRequestUrl("findCategoryChildren")
                 .addParam("parent_id",parent_id+"")
                 .targetClass(CategoryChildBean[].class)
+                .execute(listener);
+    }
+    public static void register(Context context, String name, String nick,String password, OkHttpUtils.OnCompleteListener<ResultBean> listener){
+        OkHttpUtils<ResultBean> utils = new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_REGISTER)
+                .addParam(I.User.USER_NAME,name)
+                .addParam(I.User.NICK,nick)
+                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
+                .targetClass(ResultBean.class)
+                .post()
                 .execute(listener);
     }
 

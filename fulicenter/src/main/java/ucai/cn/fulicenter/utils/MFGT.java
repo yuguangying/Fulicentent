@@ -47,10 +47,11 @@ public class MFGT {
         startActivity(context, intent);
     }
 
-    public static void gotoBoutiquesGoodsActivity(Context context, int goodsid) {
+    public static void returnSignInActivity(Context context, String name) {
         Intent intent = new Intent();
-        intent.setClass(context, Boutiques2Activity.class);
-        intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, goodsid);
+        intent.setClass(context, SignInActivity.class);
+        intent.putExtra(I.User.USER_NAME, name);
+        startActivity(context,intent);
     }
 
     public static void gotoBoutiquesGoodsActivity(Context context, int goodsid, String title) {

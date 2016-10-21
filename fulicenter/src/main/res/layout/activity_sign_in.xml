@@ -39,11 +39,10 @@
         android:drawableEnd="@drawable/icon_account"
         android:hint="用户名" />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/blue" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3px"
+            android:background="@color/gray" />
 
     <EditText
         android:id="@+id/sign_in_password"
