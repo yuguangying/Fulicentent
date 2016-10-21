@@ -24,7 +24,12 @@
             android:text="登录"
             android:textSize="30sp" />
     </RelativeLayout>
-
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
     <EditText
         android:id="@+id/sign_in_name"
         android:layout_width="match_parent"
@@ -47,7 +52,7 @@
         android:background="@color/bottom_bar_taobao_bg"
         android:drawableEnd="@drawable/icon_pwd"
         android:hint="密码" />
-
+    </LinearLayout>
     <RelativeLayout
 
         android:layout_width="match_parent"
