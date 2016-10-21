@@ -99,10 +99,13 @@ public class SignInActivity extends AppCompatActivity {
                         pd.dismiss();
                         Log.i("main", "onSuccess: "+result.getRetCode());
                         Log.i("main", "onSuccess: "+result.isRetMsg());
-                        if (result.getRetCode()==I.MSG_LOGIN_SUCCESS){
+                        if (result.getRetCode()==I.MSG_LOGIN_SUCCESS || result.getRetCode() ==0){
                             Log.i("main", "onSuccess: ");
-                            UserAvatar user = (UserAvatar) result.getRetData();
+                            String json = result.getRetData().toString();
+                            Gson gson = new Gson();
+                            UserAvatar user = gson.fromJson(json, UserAvatar.class);
                             Log.i("main", "onSuccess: "+user.toString());
+                            CommonUtils.showLongToast("登录成功");
                         }
 
                     }
