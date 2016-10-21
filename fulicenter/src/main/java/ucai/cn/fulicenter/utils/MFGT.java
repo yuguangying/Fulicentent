@@ -12,6 +12,8 @@ import ucai.cn.fulicenter.activity.Category2Activity;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.RegisterActivity;
+import ucai.cn.fulicenter.activity.SignInActivity;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
 
 
@@ -25,7 +27,12 @@ public class MFGT {
     public static void gotoMainActivity(Activity context) {
         startActivity(context, MainActivity.class);
     }
-
+    public static void gotoRegisterActivity(Activity context) {
+        startActivity(context, RegisterActivity.class);
+    }
+    public static void gotoSignActivity(Activity context) {
+        startActivity(context, SignInActivity.class);
+    }
     public static void startActivity(Activity context, Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);

@@ -134,7 +134,6 @@ public class Boutiques2Activity extends BaseActivity {
                             goodsadapter.initDataDown(list);
                             break;
                         case I.ACTION_PULL_DOWN:
-                            Log.i("main", "onSuccess: " + action);
                             goodsadapter.initDataDown(list);
                             swipe.setRefreshing(false);
                             refresh.setVisibility(View.GONE);

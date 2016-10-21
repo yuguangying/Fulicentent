@@ -31,7 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
-import ucai.cn.fulicenter.bean.Result;
+import ucai.cn.fulicenter.bean.ResultBean;
 
 
 /**
@@ -419,7 +419,7 @@ public class OkHttpUtils<T> {
      * @param <T>
      * @return
      */
-    public <T> T parseJson(Result result, Class<?> clazz) {
+    public <T> T parseJson(ResultBean result, Class<?> clazz) {
         if (result.getRetCode() == 0) {
             String json = result.getRetData().toString();
             T t = parseJson(json, clazz);

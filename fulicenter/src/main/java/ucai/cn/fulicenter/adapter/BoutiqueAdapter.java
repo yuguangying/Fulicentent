@@ -139,7 +139,6 @@ public class BoutiqueAdapter extends RecyclerView.Adapter {
         public void boutiquesLei() {
 
             String str = (String) boutiques_goods.getTag();
-            Log.i("main", "boutiquesLei: "+str);
             String[] split = str.split(":");
             int goodsId = Integer.parseInt(split[0]);
             title = split[split.length-1];

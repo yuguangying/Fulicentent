@@ -11,10 +11,12 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.fragment.BoutiqueFragment;
 import ucai.cn.fulicenter.fragment.CategoryFragment;
 import ucai.cn.fulicenter.fragment.NewGoodsFragment;
+import ucai.cn.fulicenter.utils.MFGT;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,22 +65,19 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
 
             case R.id.mboutique:
-
-
-
                 index=0;
                 break;
             case R.id.mcategory:
                 index=1;
                 break;
             case R.id.mnew_good:
-
-
                 index=2;
 
                 break;
             case R.id.mpersonal_center:
-                index=3;
+
+                MFGT.gotoSignActivity(this);
+                //index=3;
                 break;
             case R.id.mcar:
                 index=4;

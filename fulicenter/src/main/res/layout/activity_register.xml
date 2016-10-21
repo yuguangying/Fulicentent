@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bottom_bar_normal_bg_top"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bottom_bar_taobao_bg">
+
+        <ImageView
+            android:id="@+id/register_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="登录"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/register_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/bottom_bar_taobao_bg"
+        android:drawableEnd="@drawable/icon_account"
+        android:hint="用户名" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/blue" />
+
+    <EditText
+        android:id="@+id/regiser_nick"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bottom_bar_taobao_bg"
+        android:drawableEnd="@drawable/icon_account"
+        android:hint="昵称" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/blue" />
+
+    <EditText
+        android:id="@+id/regiter_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bottom_bar_taobao_bg"
+        android:drawableEnd="@drawable/icon_pwd"
+        android:hint="密码" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/blue" />
+
+    <EditText
+        android:id="@+id/register_password_two"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bottom_bar_taobao_bg"
+        android:drawableEnd="@drawable/icon_pwd"
+        android:hint="确认密码" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tb_btn_login_orange_normal"
+            android:text="免 费 注 册"
+            android:textSize="30sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

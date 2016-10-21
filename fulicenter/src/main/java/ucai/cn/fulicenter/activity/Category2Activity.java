@@ -125,11 +125,9 @@ public class Category2Activity extends BaseActivity {
                             goodsadapter.initDataDown(list);
                             break;
                         case I.ACTION_PULL_DOWN:
-                            Log.i("main", "onSuccess: " + action);
                             goodsadapter.initDataDown(list);
                             swipeCategory.setRefreshing(false);
                             refreshCategory.setVisibility(View.GONE);
-                            Log.i("main", "onSuccess: " + 1);
                             ImageLoader.release();
                             break;
                         case I.ACTION_PULL_UP:
@@ -186,7 +184,6 @@ public class Category2Activity extends BaseActivity {
                 price = !price;
                 break;
             case R.id.time_lei:
-                Log.i("main", "onClick: ");
                 if (addtime) {
                     sort = I.SORT_BY_ADDTIME_ASC;
                     right = getResources().getDrawable(R.mipmap.arrow_order_up);
