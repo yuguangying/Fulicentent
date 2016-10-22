@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:support-v4:24.2.0'
+    compile 'br.com.thiagomoreira.liferay.plugins.share-button-app:share-button-app:1.0.0'
 }

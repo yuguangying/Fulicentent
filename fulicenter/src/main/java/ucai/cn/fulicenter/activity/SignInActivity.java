@@ -75,24 +75,6 @@ public class SignInActivity extends AppCompatActivity {
                 pd.setMessage("登录....");
                 pd.show();
                 GoodsDao.signIn(this, name, password, new OkHttpUtils.OnCompleteListener<ResultBean>() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//                        pd.dismiss();
-//                        if (result == null){
-//                            CommonUtils.showShortToast("登录失败");
-//                        }else {
-//                            ResultBean resultBean = MyResultBeanUtils.getResultBeanFromJson(result, ResultBean.class);
-//                            if (resultBean.getRetCode() == I.MSG_LOGIN_SUCCESS){
-//                                CommonUtils.showShortToast("登录成功");
-//                            }else if (resultBean.getRetCode() == I.MSG_LOGIN_UNKNOW_USER){
-//                                CommonUtils.showShortToast("账号不存在");
-//                            }else if (resultBean.getRetCode() == I.MSG_LOGIN_ERROR_PASSWORD){
-//                                CommonUtils.showShortToast("账户密码错误");
-//                            }
-//
-//                        }
-//
-//                    }
 
                     @Override
                     public void onSuccess(ResultBean result) {
@@ -106,6 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                             UserAvatar user = gson.fromJson(json, UserAvatar.class);
                             Log.i("main", "onSuccess: "+user.toString());
                             CommonUtils.showLongToast("登录成功");
+                            finish();
                         }
 
                     }

@@ -3,6 +3,8 @@ package ucai.cn.fulicenter.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -122,6 +124,7 @@ public class GoodsDatileActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.share:
+
                 break;
             case R.id.like:
                 break;
@@ -134,5 +137,33 @@ public class GoodsDatileActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    /* 创建菜单 */
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, 0, 0, "分享");
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 0:
+                // intent.setType("text/plain"); //纯文本
+            /*
+             * 图片分享 it.setType("image/png"); 　//添加图片 File f = new
+             * File(Environment.getExternalStorageDirectory()+"/name.png");
+             *
+             * Uri uri = Uri.fromFile(f); intent.putExtra(Intent.EXTRA_STREAM,
+             * uri); 　
+             */
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+                intent.putExtra(Intent.EXTRA_TEXT, "I have successfully share my message through my app");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(intent, getTitle()));
+                return true;
+        }
+        return false;
     }
 }
