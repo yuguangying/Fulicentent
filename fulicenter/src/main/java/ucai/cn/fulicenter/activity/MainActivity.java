@@ -16,6 +16,7 @@ import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.fragment.BoutiqueFragment;
 import ucai.cn.fulicenter.fragment.CategoryFragment;
 import ucai.cn.fulicenter.fragment.NewGoodsFragment;
+import ucai.cn.fulicenter.fragment.Personal_Fragment;
 import ucai.cn.fulicenter.utils.MFGT;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fragments[2] = new NewGoodsFragment();
         fragments[0] = new BoutiqueFragment();
         fragments[1] = new CategoryFragment();
+        fragments[3] = new Personal_Fragment();
     }
 
 
@@ -75,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.mpersonal_center:
-
-                MFGT.gotoSignActivity(this);
-                //index=3;
+                if (FuLiCenterApplication.getUser()==null){
+                    MFGT.gotoSignActivity(this);
+                }else {
+                    index=3;
+                }
                 break;
             case R.id.mcar:
                 index=4;

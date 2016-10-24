@@ -81,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (result==null) {
                     CommonUtils.showShortToast(R.string.register_fail);
                 } else if (result.getRetCode()== I.MSG_REGISTER_SUCCESS || result.getRetCode() ==0) {
-                    CommonUtils.showLongToast(R.string.register_success);
+                    //CommonUtils.showLongToast(R.string.register_success);
                     MFGT.returnSignInActivity(mcontext, name);
                     finish();
                 }else if (result.getRetCode() == I.MSG_REGISTER_USERNAME_EXISTS){

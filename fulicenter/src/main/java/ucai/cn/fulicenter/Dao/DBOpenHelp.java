@@ -6,9 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import ucai.cn.fulicenter.I;
 
-/**
- * Created by Administrator on 2016/10/24.
- */
+
 public class DBOpenHelp extends SQLiteOpenHelper {
 
     private static final String FULICENTER_USER_TABLE_NAME = "CREATE TABLE "

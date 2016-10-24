@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="我的订单"
+            android:text="我的卡卷包"
             android:textSize="20sp" />
 
 
@@ -32,11 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="查看全部已购宝贝"
-            android:textSize="20sp" />
+
 
         <ImageView
             android:id="@+id/iv_indicator"

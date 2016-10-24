@@ -7,9 +7,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
         android:background="@color/main_orange"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="3">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,19 +21,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/iv_she"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/icon_account" />
-
             <TextView
                 android:id="@+id/tv_she"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:text="设置"
                 android:textSize="40dp" />
+            <ImageView
+                android:id="@+id/iv_she"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/tb_icon_more_msg_56" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -46,7 +47,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:src="@drawable/icon_account" />
+                android:src="@drawable/icon_account"
+                android:background="@color/blue"/>
 
             <TextView
                 android:id="@+id/tv_name"
@@ -66,7 +68,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/tv_name"
-                android:src="@drawable/icon_account" />
+                android:src="@drawable/tb_icon_home_qrcode_normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -150,57 +152,50 @@
     <include layout="@layout/item_personal_iv"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal">
-        <RadioButton
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:layout_weight="1">
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待付款"
-            android:drawableTop="@drawable/icon_account"
+            android:src="@drawable/order_list1"
             android:gravity="center"
-            android:button="@null"
             />
-        <RadioButton
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待付款"
-            android:drawableTop="@drawable/icon_account"
+            android:src="@drawable/order_list2"
             android:gravity="center"
-            android:button="@null"
             />
-        <RadioButton
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待付款"
-            android:drawableTop="@drawable/icon_account"
+            android:src="@drawable/order_list3"
             android:gravity="center"
-            android:button="@null"
             />
-        <RadioButton
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待付款"
-            android:drawableTop="@drawable/icon_account"
+            android:src="@drawable/order_list4"
             android:gravity="center"
-            android:button="@null"
             />
-        <RadioButton
+        <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="待付款"
-            android:drawableTop="@drawable/icon_account"
+            android:src="@drawable/order_list5"
             android:gravity="center"
-            android:button="@null"
             />
     </LinearLayout>
-    <include layout="@layout/item_personal_iv"/>
-    <include layout="@layout/item_personal_iv"/>
-    <include layout="@layout/item_personal_iv"/>
-    <include layout="@layout/item_personal_iv"/>
+    <include layout="@layout/item_personal_ka"
+        />
+    <include layout="@layout/item_personal_life"/>
+    <include layout="@layout/item_personal_intent"/>
+    <include layout="@layout/item_personal_hueiyuang"/>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
 import ucai.cn.fulicenter.Dao.UserDao;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
@@ -28,11 +29,15 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 UserAvatar user = FuLiCenterApplication.getUser();
-                Log.i("main", "run: "+user);
-                if (user == null){
+                String username = SharePrefrenceUtils.getInstance(context).getUser();
+                Log.i("main", "run: username:"+username);
+                if (user == null && username!=null){
                     UserDao dao = new UserDao(context);
-                    user = dao.getUser("yu");
-                    Log.i("main", "database,run: "+user);
+                    user = dao.getUser(username);
+                    Log.i("main", "database,run: user"+user);
+                    if(user!=null){
+                        FuLiCenterApplication.setUserAvatar(user);
+                    }
                 }
                 UserDao ud = new UserDao(context);
                 //活动界面跳转时的动画

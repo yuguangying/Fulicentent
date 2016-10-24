@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
 import ucai.cn.fulicenter.Dao.UserDao;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
@@ -92,6 +93,7 @@ public class SignInActivity extends AppCompatActivity {
                             UserDao ud = new UserDao(context);
                             boolean isSuccess = ud.saveUser(user);
                             if (isSuccess){
+                                SharePrefrenceUtils.getInstance(context).saveUser(user.getMuserName());
                                 Log.i("main", "onSuccess: isSuccess");
                                 FuLiCenterApplication.setUserAvatar(user);
                             }else {
