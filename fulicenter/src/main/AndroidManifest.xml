@@ -24,7 +24,8 @@
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.Category2Activity" />
         <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.CollectionBabyActivity"></activity>
     </application>
 
 </manifest>

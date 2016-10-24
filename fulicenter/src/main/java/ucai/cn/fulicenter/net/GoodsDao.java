@@ -7,6 +7,7 @@ import ucai.cn.fulicenter.bean.BoutiqueBean;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.bean.CategoryGroupBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
+import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.utils.MD5;
@@ -57,7 +58,7 @@ public class GoodsDao {
         utils.url(I.SERVER_ROOT+I.REQUEST_REGISTER)
                 .addParam(I.User.USER_NAME,name)
                 .addParam(I.User.NICK,nick)
-                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
+                .addParam(I.User.PASSWORD, password)
                 .targetClass(ResultBean.class)
                 .post()
                 .execute(listener);
@@ -66,8 +67,28 @@ public class GoodsDao {
         OkHttpUtils<ResultBean> utils = new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_LOGIN)
                 .addParam(I.User.USER_NAME,name)
-                .addParam(I.User.PASSWORD, MD5.getMessageDigest(password))
+                .addParam(I.User.PASSWORD,password)
                 .targetClass(ResultBean.class)
                 .execute(listener);
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/addCollect?goods_id=348&userName=GueiHuen
+    public static void addCollect(Context context, int goodsid, String username, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_ADD_COLLECT)
+                .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
+                .addParam(I.User.USER_NAME,username)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/isCollect?goods_id=347&userName=GueiHuen
+    public static void isCollect(Context context, int goodsid, String username, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_IS_COLLECT)
+                .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
+                .addParam(I.User.USER_NAME,username)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
     }
 }

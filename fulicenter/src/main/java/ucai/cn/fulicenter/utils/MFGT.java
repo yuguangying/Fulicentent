@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.activity.Boutiques2Activity;
 import ucai.cn.fulicenter.activity.Category2Activity;
+import ucai.cn.fulicenter.activity.CollectionBabyActivity;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.R;
@@ -87,5 +88,10 @@ public class MFGT {
         context.startActivity(intent);
         //活动界面跳转时的动画
         ((Activity) context).overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
+    public static void gotoCollectionBaby(Context context){
+        Intent intent = new Intent();
+        intent.setClass(context,CollectionBabyActivity.class);
+        startActivity(context,intent);
     }
 }

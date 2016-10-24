@@ -3,22 +3,27 @@ package ucai.cn.fulicenter.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.AlbumsBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
+import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.net.GoodsDao;
+import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.views.FlowIndicator;
 import ucai.cn.fulicenter.views.SlideAutoLoopView;
@@ -29,10 +34,7 @@ public class GoodsDatileActivity extends BaseActivity {
     ImageView back;
     @Bind(R.id.share)
     ImageView share;
-    @Bind(R.id.like)
-    ImageView like;
-    @Bind(R.id.add_car)
-    ImageView addCar;
+
     @Bind(R.id.EnglishName)
     TextView EnglishName;
     @Bind(R.id.ChinaName)
@@ -49,6 +51,12 @@ public class GoodsDatileActivity extends BaseActivity {
     WebView briefIntroduction;
     Context context;
     int goodsid;
+    @Bind(R.id.like)
+    RadioButton like;
+    @Bind(R.id.add_car)
+    RadioButton addCar;
+    GoodsDetailsBean goodsDetails;
+    boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,7 @@ public class GoodsDatileActivity extends BaseActivity {
                 if (result == null) {
                     finish();
                 }
+                goodsDetails = result;
                 showGoodsDatile(result);
             }
 
@@ -127,10 +136,53 @@ public class GoodsDatileActivity extends BaseActivity {
 
                 break;
             case R.id.like:
+                isCollect();
                 break;
             case R.id.add_car:
                 break;
         }
+    }
+
+    private void addCollect() {
+        GoodsDao.addCollect(context, goodsDetails.getGoodsId(), FuLiCenterApplication.getUser().getMuserName(),
+                new OkHttpUtils.OnCompleteListener<MessageBean>() {
+
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result.isSuccess()){
+                            CommonUtils.showLongToast(result.getMsg());
+                        }else {
+                            CommonUtils.showLongToast(result.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        CommonUtils.showLongToast(error);
+                        Log.e("main", "onError: " + error);
+                    }
+                });
+    }
+
+    public void isCollect() {
+        GoodsDao.isCollect(context, goodsDetails.getGoodsId(), FuLiCenterApplication.getUser().getMuserName(),
+                new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+
+                        Log.i("main", "onSuccess: "+result.toString()+":goodsid"+ goodsDetails.getGoodsId()+":name"
+                                +FuLiCenterApplication.getUser().getMuserName());
+                        if (result.isSuccess()){
+                            CommonUtils.showLongToast("已收藏");
+                        }else {
+                            addCollect();
+                        }
+                    }
+                    @Override
+                    public void onError(String error) {
+                        Log.i("main", "onError: "+error);
+                    }
+                });
     }
 
     @Override
@@ -156,7 +208,7 @@ public class GoodsDatileActivity extends BaseActivity {
              * Uri uri = Uri.fromFile(f); intent.putExtra(Intent.EXTRA_STREAM,
              * uri); 　
              */
-                Intent intent=new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
                 intent.putExtra(Intent.EXTRA_TEXT, "I have successfully share my message through my app");

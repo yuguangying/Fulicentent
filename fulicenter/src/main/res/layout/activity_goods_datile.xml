@@ -7,6 +7,7 @@
     tools:context="ucai.cn.fulicenter.activity.GoodsDatileActivity">
 
     <RelativeLayout
+
         android:id="@+id/lltitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,21 +37,25 @@
             android:layout_alignParentEnd="true"
             android:src="@drawable/selector_share_bg" />
 
-        <ImageView
+        <RadioButton
+            android:layout_centerVertical="true"
             android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/share"
-            android:src="@drawable/selector_bg_collect" />
+            android:button="@null"
+            android:drawableTop="@drawable/selector_bg_collect" />
 
-        <ImageView
+        <RadioButton
+            android:layout_centerVertical="true"
             android:id="@+id/add_car"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/like"
-            android:src="@drawable/selector_menu_item_cart" />
+            android:button="@null"
+            android:drawableTop="@drawable/selector_menu_item_cart" />
     </RelativeLayout>
 
     <RelativeLayout

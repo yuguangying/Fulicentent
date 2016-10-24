@@ -385,8 +385,8 @@ public class ImageLoader {
     //http://101.251.196.90:8000/FuLiCenterServerV2.0/
     // downloadAvatar?name_or_hxid=a897572&avatarType=user_avatar&m_avatar_suffix=.png&width=80&height=80
     public static String getAvatar(UserAvatar user){
-        String url = "downloadAvatar?name_or_hxid="+user.getMuserName()+"&"
-                +"avatarType=user_avatar"+"&m_avatar_suffix=.png"+"&width=80&height=80";
+        String url = I.SERVER_ROOT+I.REQUEST_DOWNLOAD_AVATAR+"?name_or_hxid="+user.getMuserName()+"&"
+                +"avatarType=user_avatar"+"&m_avatar_suffix="+user.getMavatarSuffix()+"&width=80&height=80";
         Log.i("main", "getAvatar: "+url);
         return url;
     }
@@ -394,6 +394,7 @@ public class ImageLoader {
         ImageLoader.build(url)
                 .defaultPicture(R.drawable.nopic)
                 .imageView(imageView)
+                .setDragging(true)
                 .showImage(context);
 
     }
