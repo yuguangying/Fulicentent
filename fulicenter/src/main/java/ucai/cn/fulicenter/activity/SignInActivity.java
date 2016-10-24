@@ -50,10 +50,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            signInName.setText(intent.getStringExtra(I.User.USER_NAME));
-//        }
+
     }
 
     @Override
@@ -84,7 +81,6 @@ public class SignInActivity extends AppCompatActivity {
                     public void onSuccess(ResultBean result) {
 
                         if (result.getRetCode()==I.MSG_LOGIN_SUCCESS || result.getRetCode() ==0){
-                            Log.i("main", "onSuccess: ");
                             String json = result.getRetData().toString();
                             Gson gson = new Gson();
                             UserAvatar user = gson.fromJson(json, UserAvatar.class);
@@ -94,14 +90,15 @@ public class SignInActivity extends AppCompatActivity {
                             boolean isSuccess = ud.saveUser(user);
                             if (isSuccess){
                                 SharePrefrenceUtils.getInstance(context).saveUser(user.getMuserName());
-                                Log.i("main", "onSuccess: isSuccess");
                                 FuLiCenterApplication.setUserAvatar(user);
                             }else {
                                 CommonUtils.showLongToast("用户数据库异常");
                                 MFGT.finish(context);
                             }
+                            MFGT.signGotoMainActivity(context);
                             finish();
                         }
+
                         pd.dismiss();
 
                     }

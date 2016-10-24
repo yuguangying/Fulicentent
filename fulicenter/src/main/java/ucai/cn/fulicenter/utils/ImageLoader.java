@@ -21,6 +21,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.bean.UserAvatar;
 
 
 /**
@@ -380,5 +381,20 @@ public class ImageLoader {
                 .imageView(imageView)
                 .setDragging(isDragging)
                 .showImage(context);
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/
+    // downloadAvatar?name_or_hxid=a897572&avatarType=user_avatar&m_avatar_suffix=.png&width=80&height=80
+    public static String getAvatar(UserAvatar user){
+        String url = "downloadAvatar?name_or_hxid="+user.getMuserName()+"&"
+                +"avatarType=user_avatar"+"&m_avatar_suffix=.png"+"&width=80&height=80";
+        Log.i("main", "getAvatar: "+url);
+        return url;
+    }
+    public static void downloadAvatar(String url,Context context,ImageView imageView){
+        ImageLoader.build(url)
+                .defaultPicture(R.drawable.nopic)
+                .imageView(imageView)
+                .showImage(context);
+
     }
 }

@@ -27,14 +27,24 @@ public class MFGT {
     public static void gotoMainActivity(Activity context) {
         startActivity(context, MainActivity.class);
     }
-    public static void gotoRegisterActivity(Activity context,Class<?> cls) {
+
+    public static void gotoRegisterActivity(Activity context, Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
-        context.startActivityForResult(intent,110);
+        context.startActivityForResult(intent, 110);
     }
+
     public static void gotoSignActivity(Activity context) {
-        startActivity(context, SignInActivity.class);
+        Intent in = new Intent(context,SignInActivity.class);
+        context.startActivityForResult(in,111);
     }
+
+    public static void signGotoMainActivity(Activity context) {
+        Intent intent = new Intent();
+        intent.setClass(context, MainActivity.class);
+        context.setResult(Activity.RESULT_OK, intent);
+    }
+
     public static void startActivity(Activity context, Class<?> cls) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
@@ -53,8 +63,9 @@ public class MFGT {
         Intent intent = new Intent();
         intent.setClass(context, SignInActivity.class);
         intent.putExtra(I.User.USER_NAME, name);
-        context.setResult(Activity.RESULT_OK,intent);
+        context.setResult(Activity.RESULT_OK, intent);
     }
+
     public static void gotoBoutiquesGoodsActivity(Context context, int goodsid, String title) {
         Intent intent = new Intent();
         intent.setClass(context, Boutiques2Activity.class);
@@ -62,14 +73,16 @@ public class MFGT {
         intent.putExtra("title", title);
         startActivity(context, intent);
     }
+
     public static void gotoCategoryGoodsActivity(Context context, int carid, String title, ArrayList<CategoryChildBean> list) {
         Intent intent = new Intent();
         intent.setClass(context, Category2Activity.class);
         intent.putExtra(I.GoodsDetails.KEY_GOODS_ID, carid);
         intent.putExtra("title", title);
-        intent.putExtra("list",list);
+        intent.putExtra("list", list);
         startActivity(context, intent);
     }
+
     public static void startActivity(Context context, Intent intent) {
         context.startActivity(intent);
         //活动界面跳转时的动画

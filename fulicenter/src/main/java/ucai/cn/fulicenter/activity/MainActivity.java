@@ -1,9 +1,11 @@
 package ucai.cn.fulicenter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         }
         setFragment();
     }
+
     public void setFragment(){
         if (index!=currIndex){
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -101,5 +104,14 @@ public class MainActivity extends AppCompatActivity {
             ft.show(fragments[index]).commit();
         }
         currIndex = index;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111&&resultCode == RESULT_OK){
+            index = 3;
+            setFragment();
+       }
     }
 }
