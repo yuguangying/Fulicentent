@@ -5,15 +5,21 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-/**
- * Created by Administrator on 2016/10/13.
- */
+import ucai.cn.fulicenter.bean.UserAvatar;
+
+
 public class FuLiCenterApplication extends Application{
     public static FuLiCenterApplication applicationContext=null;
     private static FuLiCenterApplication instance;
+    private static UserAvatar userAvatar;
+
+    public static void setUserAvatar(UserAvatar userAvatar) {
+        FuLiCenterApplication.userAvatar = userAvatar;
+    }
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         applicationContext = this;
         instance = this;
@@ -25,5 +31,9 @@ public class FuLiCenterApplication extends Application{
             instance = new FuLiCenterApplication();
         }
         return instance;
+    }
+
+    public static UserAvatar getUser() {
+        return userAvatar;
     }
 }

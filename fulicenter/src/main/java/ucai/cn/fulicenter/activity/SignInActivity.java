@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.Dao.UserDao;
+import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.ResultBean;
@@ -40,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
     Button signInButton;
     @Bind(R.id.sign_in_regiser)
     Button signInRegiser;
+    SignInActivity context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +81,7 @@ public class SignInActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(ResultBean result) {
-                        pd.dismiss();
-                        Log.i("main", "onSuccess: "+result.getRetCode());
-                        Log.i("main", "onSuccess: "+result.isRetMsg());
+
                         if (result.getRetCode()==I.MSG_LOGIN_SUCCESS || result.getRetCode() ==0){
                             Log.i("main", "onSuccess: ");
                             String json = result.getRetData().toString();
@@ -88,8 +89,18 @@ public class SignInActivity extends AppCompatActivity {
                             UserAvatar user = gson.fromJson(json, UserAvatar.class);
                             Log.i("main", "onSuccess: "+user.toString());
                             CommonUtils.showLongToast("登录成功");
+                            UserDao ud = new UserDao(context);
+                            boolean isSuccess = ud.saveUser(user);
+                            if (isSuccess){
+                                Log.i("main", "onSuccess: isSuccess");
+                                FuLiCenterApplication.setUserAvatar(user);
+                            }else {
+                                CommonUtils.showLongToast("用户数据库异常");
+                                MFGT.finish(context);
+                            }
                             finish();
                         }
+                        pd.dismiss();
 
                     }
 
