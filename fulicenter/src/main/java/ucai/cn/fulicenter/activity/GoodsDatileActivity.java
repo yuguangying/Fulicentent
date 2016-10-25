@@ -146,7 +146,6 @@ public class GoodsDatileActivity extends BaseActivity {
     private void addCollect() {
         GoodsDao.addCollect(context, goodsDetails.getGoodsId(), FuLiCenterApplication.getUser().getMuserName(),
                 new OkHttpUtils.OnCompleteListener<MessageBean>() {
-
                     @Override
                     public void onSuccess(MessageBean result) {
                         if (result.isSuccess()){
@@ -155,7 +154,6 @@ public class GoodsDatileActivity extends BaseActivity {
                             CommonUtils.showLongToast(result.getMsg());
                         }
                     }
-
                     @Override
                     public void onError(String error) {
                         CommonUtils.showLongToast(error);

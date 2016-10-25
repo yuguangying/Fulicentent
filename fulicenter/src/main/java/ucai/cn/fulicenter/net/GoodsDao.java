@@ -76,7 +76,7 @@ public class GoodsDao {
         OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_ADD_COLLECT)
                 .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.Collect.USER_NAME,username)
                 .targetClass(MessageBean.class)
                 .execute(listener);
 
@@ -86,7 +86,7 @@ public class GoodsDao {
         OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_IS_COLLECT)
                 .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
-                .addParam(I.User.USER_NAME,username)
+                .addParam(I.Collect.USER_NAME,username)
                 .targetClass(MessageBean.class)
                 .execute(listener);
 
