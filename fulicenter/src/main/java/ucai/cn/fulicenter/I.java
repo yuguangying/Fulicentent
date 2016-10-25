@@ -329,6 +329,7 @@ public interface I {
     String AVATAR_TYPE = "avatarType";
     /** 用户的账号或群组的环信id */
     String NAME_OR_HXID = "name_or_hxid";
+
     /** 客户端发送的获取服务端状态的请求 */
     String REQUEST_SERVERSTATUS = "getServerStatus";
     /** 客户端发送的新用户注册的请求 */

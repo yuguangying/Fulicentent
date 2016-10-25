@@ -17,6 +17,7 @@ import ucai.cn.fulicenter.Dao.DBMenager;
 import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
@@ -59,13 +60,6 @@ public class PersonalDataActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
-    }
-
-    @Override
-    protected void initView() {
-        context = this;
-        user = FuLiCenterApplication.getUser();
         if (user != null) {
             oldNick = user.getMuserNick();
             tvModifyNick.setText(oldNick);
@@ -73,7 +67,15 @@ public class PersonalDataActivity extends BaseActivity {
             if (user.getMavatarSuffix() != null) {
                 ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivModifyAvatar);
             }
+
         }
+    }
+
+    @Override
+    protected void initView() {
+        context = this;
+        user = FuLiCenterApplication.getUser();
+
 
     }
 
@@ -81,19 +83,13 @@ public class PersonalDataActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
-//                if (isSuccess){
-//
-//                }else {
                 MFGT.finish(this);
-//                }
                 break;
             case R.id.iv_modify_avatar:
                 break;
 
             case R.id.tv_modify_nick:
-                Intent intent = new Intent();
-                intent.setClass(this, ModifiedNickActivity.class);
-                startActivityForResult(intent, 112);
+                MFGT.gotoModifiledActivity(this);
                 break;
             case R.id.btn_sign_out:
                 if (user != null) {

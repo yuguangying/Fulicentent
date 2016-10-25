@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/cardview_default_elevation"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp">
+
+
+    <RelativeLayout
+        android:id="@+id/goods_item"
+        android:layout_width="195dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@mipmap/delete"
+    android:layout_alignParentEnd="true"/>
+        <ImageView
+            android:id="@+id/miv_collect_goods"
+            android:layout_width="195dp"
+            android:layout_height="250dp"
+            android:src="@drawable/nopic" />
+
+        <TextView
+            android:layout_below="@id/miv_collect_goods"
+            android:id="@+id/collect_goods_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="商品名称"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_below="@id/collect_goods_name"
+            android:id="@+id/collect_goods_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="商品价格"
+            android:textSize="20dp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -13,6 +13,7 @@ import ucai.cn.fulicenter.activity.CollectionBabyActivity;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.ModifiedNickActivity;
 import ucai.cn.fulicenter.activity.PersonalDataActivity;
 import ucai.cn.fulicenter.activity.RegisterActivity;
 import ucai.cn.fulicenter.activity.SignInActivity;
@@ -35,7 +36,11 @@ public class MFGT {
         intent.setClass(context, cls);
         context.startActivityForResult(intent, 110);
     }
-
+    public static void gotoModifiledActivity(Activity context) {
+        Intent intent = new Intent();
+        intent.setClass(context, ModifiedNickActivity.class);
+        context.startActivityForResult(intent, 112);
+    }
     public static void gotoSignActivity(Activity context) {
         Intent in = new Intent(context,SignInActivity.class);
         context.startActivityForResult(in,111);

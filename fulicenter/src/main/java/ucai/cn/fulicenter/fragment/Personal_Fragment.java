@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,13 @@ import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.activity.PersonalDataActivity;
+import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.bean.UserAvatar;
+import ucai.cn.fulicenter.net.GoodsDao;
+import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.MFGT;
+import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +70,18 @@ public class Personal_Fragment extends BaseFragment {
             if (user.getMavatarSuffix() != null) {
                 ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivAvatar);
             }
+            GoodsDao.findCollectCount(context, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                @Override
+                public void onSuccess(MessageBean result) {
+                    collectionOfBaby.setText(result.getMsg());
+                }
+
+                @Override
+                public void onError(String error) {
+                    CommonUtils.showLongToast(error);
+                    Log.i("main", "onError: "+error);
+                }
+            });
         }
     }
 

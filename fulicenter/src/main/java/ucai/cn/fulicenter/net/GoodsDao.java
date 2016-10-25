@@ -101,4 +101,32 @@ public class GoodsDao {
                 .execute(listener);
 
     }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/updateAvatar?name_or_hxid=SDFA&avatarType=user_avatar
+    public static void modifiedAvatar(Context context, String name_or_hxid, String avatarType ,OkHttpUtils.OnCompleteListener<ResultBean> listener){
+        OkHttpUtils<ResultBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_UPDATE_AVATAR)
+                .addParam(I.NAME_OR_HXID,name_or_hxid)
+                .addParam(I.AVATAR_TYPE,avatarType)
+                .targetClass(ResultBean.class)
+                .execute(listener);
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/findCollectCount?userName=GueiHuen
+    public static void findCollectCount(Context context,String username, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_FIND_COLLECT_COUNT)
+                .addParam(I.Collect.USER_NAME,username)
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/findCollects?userName=GueiHuen&page_id=1&page_size=5
+    public static void findCollects(Context context,String username, int pagId, int action,int pagesize, OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]> listener){
+        OkHttpUtils<NewGoodsBeanFive[]> utils = new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_FIND_COLLECTS)
+                .addParam(I.PAGE_ID,String.valueOf(pagId))
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam(I.PAGE_SIZE,String.valueOf(I.PAGE_SIZE_DEFAULT))
+                .targetClass(NewGoodsBeanFive[].class)
+                .execute(listener);
+    }
 }

@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if (FuLiCenterApplication.getUser()==null&&index == 3){
             index = 0;
+            mboutique.setChecked(true);
         }
         setFragment();
     }
