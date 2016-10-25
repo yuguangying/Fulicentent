@@ -2,6 +2,8 @@ package ucai.cn.fulicenter.net;
 
 import android.content.Context;
 
+import java.io.File;
+
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.bean.BoutiqueBean;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
@@ -102,12 +104,14 @@ public class GoodsDao {
 
     }
     //http://101.251.196.90:8000/FuLiCenterServerV2.0/updateAvatar?name_or_hxid=SDFA&avatarType=user_avatar
-    public static void modifiedAvatar(Context context, String name_or_hxid, String avatarType ,OkHttpUtils.OnCompleteListener<ResultBean> listener){
+    public static void modifiedAvatar(Context context, String name_or_hxid , File file,OkHttpUtils.OnCompleteListener<ResultBean> listener){
         OkHttpUtils<ResultBean> utils =new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_UPDATE_AVATAR)
                 .addParam(I.NAME_OR_HXID,name_or_hxid)
-                .addParam(I.AVATAR_TYPE,avatarType)
+                .addParam(I.AVATAR_TYPE,I.AVATAR_TYPE_USER_PATH)
+                .addFile2(file)
                 .targetClass(ResultBean.class)
+                .post()
                 .execute(listener);
     }
     //http://101.251.196.90:8000/FuLiCenterServerV2.0/findCollectCount?userName=GueiHuen

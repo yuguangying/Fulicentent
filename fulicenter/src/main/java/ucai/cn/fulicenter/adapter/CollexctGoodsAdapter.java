@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,13 +28,7 @@ public class CollexctGoodsAdapter extends RecyclerView.Adapter {
     Context context;
     ArrayList<NewGoodsBeanFive> goodlist;
     boolean ismore;
-    int sort = I.SORT_BY_PRICE_ASC;
 
-    public void setSort(int sort) {
-        this.sort = sort;
-        sortByCurrencyPrice();
-        notifyDataSetChanged();
-    }
 
     public boolean ismore() {
         return ismore;
@@ -121,37 +114,8 @@ public class CollexctGoodsAdapter extends RecyclerView.Adapter {
         }
     }
 
-//
-    private void sortByCurrencyPrice() {
-        Collections.sort(goodlist, new Comparator<NewGoodsBeanFive>() {
-            @Override
-            public int compare(NewGoodsBeanFive left, NewGoodsBeanFive right) {
-                int result = 0;
-                switch (sort) {
-                    case I.SORT_BY_ADDTIME_ASC:
-                        result = (int) (Long.valueOf(left.getAddTime()) - Long.valueOf(right.getAddTime()));
-                        break;
-                    case I.SORT_BY_ADDTIME_DESC:
-                        result = (int) (Long.valueOf(right.getAddTime()) - Long.valueOf(left.getAddTime()));
-                        break;
-                    case I.SORT_BY_PRICE_ASC:
-                        result = money(left.getCurrencyPrice()) - money(right.getCurrencyPrice());
-                        break;
-                    case I.SORT_BY_PRICE_DESC:
-                        result = money(right.getCurrencyPrice()) - money(left.getCurrencyPrice());
-                        break;
-                }
-                return result;
-            }
 
-            private int money(String pice) {
-                pice = pice.substring(pice.indexOf("￥") + 1);
-                int jaige = Integer.valueOf(pice);
-                return jaige;
-            }
-        });
 
-    }
 
     class GoodsViewHolder extends RecyclerView.ViewHolder{
         @Bind(R.id.miv_collect_goods)
@@ -162,15 +126,21 @@ public class CollexctGoodsAdapter extends RecyclerView.Adapter {
         TextView collectGoodsPrice;
         @Bind(R.id.goods_item)
         RelativeLayout goodsItem;
+        @Bind(R.id.delete)
+        ImageView delete;
 
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
         @OnClick(R.id.goods_item)
-        public void goodOnclick() {
+        public void gooditem() {
             int goodsId = (int) goodsItem.getTag();
             MFGT.gotoGoodsDatileActivity(context, goodsId);
+        }
+        @OnClick(R.id.delete)
+        public void delete(){
+
         }
     }
 }

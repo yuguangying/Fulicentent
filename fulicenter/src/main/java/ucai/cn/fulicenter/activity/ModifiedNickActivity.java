@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.MFGT;
 
 public class ModifiedNickActivity extends AppCompatActivity {
@@ -40,9 +41,15 @@ public class ModifiedNickActivity extends AppCompatActivity {
                 MFGT.finish(this);
                 break;
             case R.id.btn_true:
-                String newNick = tvModifyNewNick.getText().toString();
-                MFGT.modifiedGoTOPersonalData(this,newNick);
-                MFGT.finish(this);
+                if (!tvModifyNewNick.getText().toString().trim().equals("")) {
+                    String newNick = tvModifyNewNick.getText().toString();
+                    MFGT.modifiedGoTOPersonalData(this, newNick);
+                    MFGT.finish(this);
+                }else {
+                    CommonUtils.showLongToast("不能为空");
+                    tvModifyNewNick.setError("不能为空");
+                    tvModifyNewNick.requestFocus();
+                }
                 break;
         }
     }

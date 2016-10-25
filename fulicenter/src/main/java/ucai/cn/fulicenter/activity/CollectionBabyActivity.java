@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -14,17 +15,18 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.adapter.CollexctGoodsAdapter;
-import ucai.cn.fulicenter.adapter.GoodsAdapter;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
+import ucai.cn.fulicenter.utils.MFGT;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 public class CollectionBabyActivity extends BaseActivity {
@@ -49,6 +51,8 @@ public class CollectionBabyActivity extends BaseActivity {
     Context context;
     CollexctGoodsAdapter goodadapter;
     UserAvatar user;
+    String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_collection_baby);
@@ -102,7 +106,7 @@ public class CollectionBabyActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        GoodsDao.findCollects(context,user.getMuserName(), pagId, action, I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
+        GoodsDao.findCollects(context, username, pagId, action, I.PAGE_SIZE_DEFAULT, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
                 if (result != null && result.length > 0) {
@@ -116,6 +120,7 @@ public class CollectionBabyActivity extends BaseActivity {
                             goodadapter.initDataDown(list);
                             break;
                         case I.ACTION_PULL_DOWN:
+                            Log.i("main", "onSuccess: ACTION_PULL_DOWN"+list.size());
                             goodadapter.initDataDown(list);
                             swipeBoutiques.setRefreshing(false);
                             recyclerBoutiques.setVisibility(View.GONE);
@@ -146,6 +151,7 @@ public class CollectionBabyActivity extends BaseActivity {
     protected void initView() {
         context = this;
         user = FuLiCenterApplication.getUser();
+        username = user.getMuserName();
         goodslist = new ArrayList<>();
         goodadapter = new CollexctGoodsAdapter(context, goodslist);
         //给刷新的圆圈设置渐变的颜色
@@ -167,5 +173,10 @@ public class CollectionBabyActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.back)
+    public void onClick() {
+        MFGT.finish(this);
     }
 }

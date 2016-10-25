@@ -56,6 +56,9 @@ public class UserAvatar {
     }
 
     public String getMavatarSuffix() {
+        if (mavatarSuffix==null){
+            return ".png";
+        }
         return mavatarSuffix;
     }
 

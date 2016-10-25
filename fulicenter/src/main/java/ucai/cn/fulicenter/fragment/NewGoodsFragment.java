@@ -110,13 +110,9 @@ public class NewGoodsFragment extends BaseFragment {
         });
     }
 
-
-
-
     @Override
     protected void initData() {
         GoodsDao.downloadNewGoods(mcontext, pagId, action, I.CAT_ID, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
-
             @Override
             public void onSuccess(NewGoodsBeanFive[] result) {
                 if (result != null && result.length > 0) {
@@ -144,7 +140,6 @@ public class NewGoodsFragment extends BaseFragment {
                     goodadapter.setIsmore(false);
                 }
             }
-
             @Override
             public void onError(String error) {
                 swipe.setEnabled(false);

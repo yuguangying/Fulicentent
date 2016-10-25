@@ -13,11 +13,14 @@
         android:layout_width="195dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@mipmap/delete"
-    android:layout_alignParentEnd="true"/>
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@mipmap/delete" />
+
         <ImageView
             android:id="@+id/miv_collect_goods"
             android:layout_width="195dp"
@@ -25,19 +28,19 @@
             android:src="@drawable/nopic" />
 
         <TextView
-            android:layout_below="@id/miv_collect_goods"
             android:id="@+id/collect_goods_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/miv_collect_goods"
             android:layout_marginLeft="20dp"
             android:text="商品名称"
             android:textSize="20dp" />
 
         <TextView
-            android:layout_below="@id/collect_goods_name"
             android:id="@+id/collect_goods_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/collect_goods_name"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:text="商品价格"
