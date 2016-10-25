@@ -13,6 +13,7 @@ import ucai.cn.fulicenter.activity.CollectionBabyActivity;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.activity.PersonalDataActivity;
 import ucai.cn.fulicenter.activity.RegisterActivity;
 import ucai.cn.fulicenter.activity.SignInActivity;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
@@ -44,6 +45,12 @@ public class MFGT {
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);
         context.setResult(Activity.RESULT_OK, intent);
+    }
+    public static void modifiedGoTOPersonalData(Activity context,String newNick){
+        Intent intent = new Intent();
+        intent.setClass(context,PersonalDataActivity.class);
+        intent.putExtra("newNick",newNick);
+        context.setResult(Activity.RESULT_OK,intent);
     }
 
     public static void startActivity(Activity context, Class<?> cls) {

@@ -91,4 +91,14 @@ public class GoodsDao {
                 .execute(listener);
 
     }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/updateNick?m_user_name=SDFA&m_user_nick=SDFA
+    public static void modifiedNick(Context context,String username,String newNick, OkHttpUtils.OnCompleteListener<ResultBean> listener){
+        OkHttpUtils<ResultBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_UPDATE_USER_NICK)
+                .addParam(I.User.NICK,newNick)
+                .addParam(I.User.USER_NAME,username)
+                .targetClass(ResultBean.class)
+                .execute(listener);
+
+    }
 }

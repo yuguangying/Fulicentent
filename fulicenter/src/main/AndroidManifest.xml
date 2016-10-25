@@ -25,7 +25,9 @@
         <activity android:name=".activity.Category2Activity" />
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.CollectionBabyActivity"></activity>
+        <activity android:name=".activity.CollectionBabyActivity" />
+        <activity android:name=".activity.PersonalDataActivity"></activity>
+        <activity android:name=".activity.ModifiedNickActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package ucai.cn.fulicenter.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import butterknife.OnClick;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.MainActivity;
+import ucai.cn.fulicenter.activity.PersonalDataActivity;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.utils.ImageLoader;
 import ucai.cn.fulicenter.utils.MFGT;
@@ -82,7 +84,7 @@ public class Personal_Fragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.collection1, R.id.collection2, R.id.collection3})
+    @OnClick({R.id.collection1, R.id.collection2, R.id.collection3,R.id.tv_she})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.collection1:
@@ -92,6 +94,17 @@ public class Personal_Fragment extends BaseFragment {
                 break;
             case R.id.collection3:
                 break;
+            case R.id.tv_she:
+                Intent intent = new Intent();
+                intent.setClass(context, PersonalDataActivity.class);
+                startActivity(intent);
+                break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 }

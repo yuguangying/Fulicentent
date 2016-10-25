@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.mnew_good:
                 index=2;
-
                 break;
             case R.id.mpersonal_center:
                 if (FuLiCenterApplication.getUser()==null){
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             if (!fragments[index].isAdded()){
                 ft.add(R.id.mfragment_main,fragments[index]);
             }
-            ft.show(fragments[index]).commit();
+            ft.show(fragments[index]).commitAllowingStateLoss();
         }
         currIndex = index;
     }
@@ -113,5 +112,14 @@ public class MainActivity extends AppCompatActivity {
             index = 3;
             setFragment();
        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (FuLiCenterApplication.getUser()==null&&index == 3){
+            index = 0;
+        }
+        setFragment();
     }
 }
