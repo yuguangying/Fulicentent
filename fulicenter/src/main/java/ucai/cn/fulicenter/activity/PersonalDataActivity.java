@@ -1,10 +1,12 @@
 package ucai.cn.fulicenter.activity;
 
-import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +14,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,7 +28,6 @@ import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
-import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
@@ -34,7 +37,7 @@ import ucai.cn.fulicenter.utils.MFGT;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.utils.OnSetAvatarListener;
 
-public class PersonalDataActivity extends BaseActivity {
+public class PersonalDataActivity extends AppCompatActivity {
 
     @Bind(R.id.back)
     ImageView back;
@@ -59,17 +62,14 @@ public class PersonalDataActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_data);
         ButterKnife.bind(this);
-        super.onCreate(savedInstanceState);
+        initView();
+        initData();
     }
 
-    @Override
-    protected void setListener() {
 
-    }
-
-    @Override
     protected void initData() {
         if (user != null) {
             oldNick = user.getMuserNick();
@@ -82,7 +82,6 @@ public class PersonalDataActivity extends BaseActivity {
         }
     }
 
-    @Override
     protected void initView() {
         context = this;
         user = FuLiCenterApplication.getUser();
@@ -124,8 +123,9 @@ public class PersonalDataActivity extends BaseActivity {
         if (resultCode != RESULT_OK) {
             return;
         }
-        osal.setAvatar(requestCode, data, ivModifyAvatar);
-
+        if (requestCode!=112) {
+            osal.setAvatar(requestCode, data, ivModifyAvatar,this);
+        }
         switch (requestCode) {
             case 112:
                 String newNick = data.getStringExtra("newNick");
@@ -141,33 +141,40 @@ public class PersonalDataActivity extends BaseActivity {
                     CommonUtils.showLongToast("修改失败");
                 }
                 break;
-            case OnSetAvatarListener.REQUEST_CROP_PHOTO:
-                String path = OnSetAvatarListener.getAvatarPath(context, user.getMuserName() + user.getMavatarSuffix());
-                File file = new File(path);
-                Log.i("main","onActivityResult: path----"+path);
-                OnSetAvatarListener.saveCropAndShowAvatar(data,context,user.getMavatarSuffix(),user.getMuserName());
-                Log.i("main", "onActivityResult: "+file.getAbsolutePath());
-                GoodsDao.modifiedAvatar(context, user.getMuserName(), file, new OkHttpUtils.OnCompleteListener<ResultBean>() {
-                    @Override
-                    public void onSuccess(ResultBean result) {
-                        Log.i("main", "onSuccess: "+result.toString());
-                        if (result.isRetMsg()){
-                            String json = result.getRetData().toString();
-                            Log.i("main", "onSuccess: user"+json);
-
-                        }else {
-                            CommonUtils.showLongToast("上传头像失败");
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        CommonUtils.showLongToast(error);
-                        Log.i("main", "onError: "+error);
-                    }
-                });
+            case 2:
+                updateAvatar();
                 break;
         }
+    }
+
+    ///storage/emulated/0/Android/data/ucai.cn.fulicenter/files/Pictures/user_avatar/GueiHuen.jpg
+    private void updateAvatar() {
+        String avatarPath = OnSetAvatarListener.getAvatarPath(this, user.getMavatarPath()+"/"+user.getMuserName()+I.AVATAR_SUFFIX_JPG);
+        Log.i("main", "updateAvatar: "+avatarPath);
+        File file = new File(avatarPath);
+        GoodsDao.modifiedAvatar(context, user.getMuserName(), file, new OkHttpUtils.OnCompleteListener<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean result) {
+                Log.i("main", "onSuccess: "+result.toString());
+                if (result.isRetMsg()){
+                    String json = result.getRetData().toString();
+                    Gson gson = new Gson();
+                    UserAvatar u = gson.fromJson(json, UserAvatar.class);
+                    Log.i("main", "onSuccess: user"+json);
+                    FuLiCenterApplication.setUserAvatar(u);
+                    Log.i("main", "onSuccess: PersonalDataActivity"+u.getMavatarLastUpdateTime());
+                    ImageLoader.setAvatar(ImageLoader.getAvatar(u), context, ivModifyAvatar);
+                }else {
+                    CommonUtils.showLongToast("上传头像失败");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.showLongToast(error);
+                Log.i("main", "onError: "+error);
+            }
+        });
     }
 
     private void modifiedNickYuan() {

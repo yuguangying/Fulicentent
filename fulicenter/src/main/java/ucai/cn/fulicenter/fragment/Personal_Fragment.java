@@ -12,14 +12,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.RequestBody;
+import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
+import ucai.cn.fulicenter.Dao.UserDao;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.activity.PersonalDataActivity;
 import ucai.cn.fulicenter.bean.MessageBean;
+import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
@@ -46,7 +52,7 @@ public class Personal_Fragment extends BaseFragment {
     @Bind(R.id.collection_of_footprint)
     TextView collectionOfFootprint;
 
-
+    UserAvatar user;
     public Personal_Fragment() {
 
     }
@@ -64,25 +70,63 @@ public class Personal_Fragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        UserAvatar user = FuLiCenterApplication.getUser();
-        if (user != null) {
+        user = FuLiCenterApplication.getUser();
+        if (user!=null) {
             tvName.setText(user.getMuserNick());
-            if (user.getMavatarSuffix() != null) {
-                ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivAvatar);
-            }
-            GoodsDao.findCollectCount(context, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                @Override
-                public void onSuccess(MessageBean result) {
-                    collectionOfBaby.setText(result.getMsg());
-                }
-
-                @Override
-                public void onError(String error) {
-                    CommonUtils.showLongToast(error);
-                    Log.i("main", "onError: "+error);
-                }
-            });
+//            if (user.getMavatarSuffix() != null) {
+//                ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivAvatar);
+//            }
         }
+        if (user != null) {
+            update();
+            updateGoodsCount();
+        }
+
+    }
+
+    private void updateGoodsCount() {
+        GoodsDao.findCollectCount(context, user.getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                collectionOfBaby.setText(result.getMsg());
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.showLongToast(error);
+                Log.i("main", "onError: "+error);
+            }
+        });
+    }
+
+    private void update() {
+        GoodsDao.findUserByUserName(context, user.getMuserName(), new OkHttpUtils.OnCompleteListener<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean result) {
+                if (result.isRetMsg()){
+                    String json = result.getRetData().toString();
+                    Gson gson = new Gson();
+                    UserAvatar userAvatar = gson.fromJson(json, UserAvatar.class);
+                    user = userAvatar;
+                    Log.i("main", "onSuccess: user"+user.getMavatarLastUpdateTime());
+                    Log.i("main", "onSuccess: userAvatar"+userAvatar.getMavatarLastUpdateTime());
+                    //if (!user.equals(userAvatar)){
+                        SharePrefrenceUtils.getInstance(context).saveUser(userAvatar.getMuserName());
+                        FuLiCenterApplication.setUserAvatar(userAvatar);
+                        tvName.setText(userAvatar.getMuserNick());
+                        if (userAvatar.getMavatarSuffix() != null) {
+                            ImageLoader.downloadAvatar(ImageLoader.getAvatar(userAvatar), context, ivAvatar);
+                        }
+
+                  // }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
     }
 
     @Override
@@ -124,4 +168,5 @@ public class Personal_Fragment extends BaseFragment {
         super.onResume();
         initData();
     }
+
 }

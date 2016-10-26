@@ -1,9 +1,11 @@
 package ucai.cn.fulicenter.utils;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -176,12 +178,23 @@ public class OnSetAvatarListener implements View.OnClickListener {
      * @param data
      * @param ivAvatar
      */
-    public void setAvatar(int requestCode, Intent data, ImageView ivAvatar) {
+    Bitmap bitmap;
+    public void setAvatar(int requestCode, Intent data, ImageView ivAvatar,Context context) {
         switch (requestCode) {
             case REQUEST_CHOOSE_PHOTO:
                 if (data != null) {
-                    startCropPhotoActivity(data.getData(), 200, 200,REQUEST_CROP_PHOTO);
-                    Log.i("main", "setAvatar: 相册返回"+data.getData());
+                    Uri uri = data.getData();
+
+                    ContentResolver cr = context.getContentResolver();
+                    try {
+                        bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    saveCropAndShowAvatar(ivAvatar,data,bitmap);
+                    closePopuAvatar();
+//                    startCropPhotoActivity(data.getData(), 200, 200,REQUEST_CROP_PHOTO);
+//                    Log.i("main", "setAvatar: 相册返回"+data.getData());
                 }
                 break;
             case REQUEST_TAKE_PICTURE:
@@ -192,7 +205,7 @@ public class OnSetAvatarListener implements View.OnClickListener {
                 break;
             case REQUEST_CROP_PHOTO:
                 Log.i("main", "setAvatar: 裁剪返回");
-                saveCropAndShowAvatar(ivAvatar, data);
+                //saveCropAndShowAvatar(ivAvatar, data);
                 closePopuAvatar();
                 break;
         }
@@ -203,14 +216,15 @@ public class OnSetAvatarListener implements View.OnClickListener {
      * @param ivAvatar
      * @param data
      */
-    private void saveCropAndShowAvatar(ImageView ivAvatar, Intent data) {
+    private void saveCropAndShowAvatar(ImageView ivAvatar, Intent data,Bitmap bitmap) {
         Log.i("main", "saveCropAndShowAvatar: 夜神");
-        Bundle extras = data.getExtras();
-        Bitmap avatar = extras.getParcelable("data");
-        if (avatar == null) {
+
+//        Bundle extras = data.getExtras();
+//        Bitmap avatar = extras.getParcelable("data");
+        if (bitmap == null) {
             return;
         }
-        ivAvatar.setImageBitmap(avatar);
+        ivAvatar.setImageBitmap(bitmap);
         File file = FileUtils.getAvatarPath(mActivity,mAvatarType, mUserName + ".jpg");
         if(!file.getParentFile().exists()){
             Toast.makeText(mActivity, "照片保存失败,保存的路径不存在", Toast.LENGTH_LONG).show();
@@ -219,7 +233,7 @@ public class OnSetAvatarListener implements View.OnClickListener {
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(file);
-            avatar.compress(Bitmap.CompressFormat.JPEG,100,out);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,out);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Log.i("main", "头像保存失败");
@@ -265,11 +279,11 @@ public class OnSetAvatarListener implements View.OnClickListener {
     private void startCropPhotoActivity(Uri uri, int outputX, int outputY, int requestCode) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
-        intent.putExtra("return-data", true);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        intent.putExtra("outputX", outputX);
+//        intent.putExtra("outputY", outputY);
+//        intent.putExtra("return-data", true);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         mActivity.startActivityForResult(intent,requestCode);
         Log.i("main", "startCropPhotoActivity: 启动裁剪的Activity");
     }

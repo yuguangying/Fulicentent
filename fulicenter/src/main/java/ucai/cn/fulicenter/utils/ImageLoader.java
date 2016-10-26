@@ -386,7 +386,7 @@ public class ImageLoader {
     // downloadAvatar?name_or_hxid=a897572&avatarType=user_avatar&m_avatar_suffix=.png&width=80&height=80
     public static String getAvatar(UserAvatar user){
         String url = I.SERVER_ROOT+I.REQUEST_DOWNLOAD_AVATAR+"?name_or_hxid="+user.getMuserName()+"&"
-                +"avatarType=user_avatar"+"&m_avatar_suffix="+user.getMavatarSuffix()+"&width=80&height=80";
+                +"avatarType=user_avatar"+"&m_avatar_suffix="+user.getMavatarSuffix()+"&width=80&height=80&"+user.getMavatarLastUpdateTime();
         Log.i("main", "getAvatar: "+url);
         return url;
     }
@@ -397,5 +397,12 @@ public class ImageLoader {
                 .setDragging(true)
                 .showImage(context);
 
+
+    }
+    public static void setAvatar(String url,Context context,ImageView imageView){
+        ImageLoader.build(url)
+                .defaultPicture(R.drawable.contactlogo)
+                .imageView(imageView)
+                .showImage(context);
     }
 }

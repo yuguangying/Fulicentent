@@ -20,6 +20,7 @@ import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.adapter.CollexctGoodsAdapter;
+import ucai.cn.fulicenter.bean.CollectBean;
 import ucai.cn.fulicenter.bean.NewGoodsBeanFive;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
@@ -44,7 +45,7 @@ public class CollectionBabyActivity extends BaseActivity {
     RecyclerView recyclerBoutiques;
     @Bind(R.id.swipe_boutiques)
     SwipeRefreshLayout swipeBoutiques;
-    ArrayList<NewGoodsBeanFive> goodslist;
+    ArrayList<CollectBean> goodslist;
     int pagId = 1;
     GridLayoutManager glm;
     int action = I.ACTION_DOWNLOAD;
@@ -106,11 +107,11 @@ public class CollectionBabyActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        GoodsDao.findCollects(context, username, pagId, action, I.PAGE_SIZE_DEFAULT, new OkHttpUtils.OnCompleteListener<NewGoodsBeanFive[]>() {
+        GoodsDao.findCollects(context, username, pagId, action, I.PAGE_SIZE_DEFAULT, new OkHttpUtils.OnCompleteListener<CollectBean[]>() {
             @Override
-            public void onSuccess(NewGoodsBeanFive[] result) {
+            public void onSuccess(CollectBean[] result) {
                 if (result != null && result.length > 0) {
-                    ArrayList<NewGoodsBeanFive> list = ConvertUtils.array2List(result);
+                    ArrayList<CollectBean> list = ConvertUtils.array2List(result);
                     goodadapter.setIsmore(true);
                     if (list.size() < I.PAGE_SIZE_DEFAULT) {
                         goodadapter.setIsmore(false);
