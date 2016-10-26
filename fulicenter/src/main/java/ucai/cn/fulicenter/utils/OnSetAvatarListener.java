@@ -180,7 +180,6 @@ public class OnSetAvatarListener implements View.OnClickListener {
         switch (requestCode) {
             case REQUEST_CHOOSE_PHOTO:
                 if (data != null) {
-//                    saveCropAndShowAvatar(ivAvatar,data);
                     startCropPhotoActivity(data.getData(), 200, 200,REQUEST_CROP_PHOTO);
                     Log.i("main", "setAvatar: 相册返回"+data.getData());
                 }
@@ -188,8 +187,7 @@ public class OnSetAvatarListener implements View.OnClickListener {
             case REQUEST_TAKE_PICTURE:
                 if (data != null) {
                     startCropPhotoActivity(data.getData(), 200, 200,REQUEST_CROP_PHOTO);
-                    //saveCropAndShowAvatar(ivAvatar,data);
-                    Log.i("main", "setAvatar: 相机返回"+data.getData());
+                    Log.i("main", "setAvatar: 相机返回--"+data.getData());
                 }
                 break;
             case REQUEST_CROP_PHOTO:

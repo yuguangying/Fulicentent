@@ -110,7 +110,6 @@ public class PersonalDataActivity extends BaseActivity {
                     Log.i("main", "onClick: ");
                 }
                 MFGT.finish(this);
-
                 break;
             case R.id.tv_name:
                 CommonUtils.showLongToast("用户名不能修改");
