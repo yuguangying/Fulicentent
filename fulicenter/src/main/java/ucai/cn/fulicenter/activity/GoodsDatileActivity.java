@@ -68,6 +68,7 @@ public class GoodsDatileActivity extends BaseActivity {
             finish();
         }
         context = this;
+        updateLike();
         super.onCreate(savedInstanceState);
     }
 
@@ -144,16 +145,18 @@ public class GoodsDatileActivity extends BaseActivity {
     }
 
     private void addCollect() {
-        GoodsDao.addCollect(context, goodsDetails.getGoodsId(), FuLiCenterApplication.getUser().getMuserName(),
+        GoodsDao.addCollect(context, goodsid, FuLiCenterApplication.getUser().getMuserName(),
                 new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-                        if (result.isSuccess()){
+                        if (result.isSuccess()) {
                             CommonUtils.showLongToast(result.getMsg());
-                        }else {
+                            like.setChecked(true);
+                        } else {
                             CommonUtils.showLongToast(result.getMsg());
                         }
                     }
+
                     @Override
                     public void onError(String error) {
                         CommonUtils.showLongToast(error);
@@ -163,22 +166,39 @@ public class GoodsDatileActivity extends BaseActivity {
     }
 
     public void isCollect() {
-        GoodsDao.isCollect(context, goodsDetails.getGoodsId(), FuLiCenterApplication.getUser().getMuserName(),
+        GoodsDao.isCollect(context, goodsid, FuLiCenterApplication.getUser().getMuserName(),
                 new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
 
-                        Log.i("main", "onSuccess: "+result.toString()+":goodsid"+ goodsDetails.getGoodsId()+":name"
-                                +FuLiCenterApplication.getUser().getMuserName());
-                        if (result.isSuccess()){
+                        Log.i("main", "onSuccess: " + result.toString() + ":goodsid" + goodsDetails.getGoodsId() + ":name"
+                                + FuLiCenterApplication.getUser().getMuserName());
+                        if (result.isSuccess()) {
                             CommonUtils.showLongToast("已收藏");
-                        }else {
+                            like.setChecked(true);
+                        } else {
                             addCollect();
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.i("main", "onError: " + error);
+                    }
+                });
+    }
+    public void updateLike() {
+        GoodsDao.isCollect(context, goodsid, FuLiCenterApplication.getUser().getMuserName(),
+                new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result.isSuccess()) {
+                            like.setChecked(true);
                         }
                     }
                     @Override
                     public void onError(String error) {
-                        Log.i("main", "onError: "+error);
+                        Log.i("main", "onError: " + error);
                     }
                 });
     }

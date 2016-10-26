@@ -1,7 +1,6 @@
 package ucai.cn.fulicenter.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,20 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.RequestBody;
-import ucai.cn.fulicenter.Dao.SharePrefrenceUtils;
-import ucai.cn.fulicenter.Dao.UserDao;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.MainActivity;
 import ucai.cn.fulicenter.activity.PersonalDataActivity;
 import ucai.cn.fulicenter.bean.MessageBean;
-import ucai.cn.fulicenter.bean.ResultBean;
 import ucai.cn.fulicenter.bean.UserAvatar;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
@@ -73,15 +67,12 @@ public class Personal_Fragment extends BaseFragment {
         user = FuLiCenterApplication.getUser();
         if (user!=null) {
             tvName.setText(user.getMuserNick());
-//            if (user.getMavatarSuffix() != null) {
-//                ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivAvatar);
-//            }
+            if (user.getMavatarSuffix() != null) {
+                Log.i("main", "initData: getMavatarSuffix");
+                ImageLoader.downloadAvatar(ImageLoader.getAvatar(user), context, ivAvatar);
+            }
         }
-        if (user != null) {
-            update();
-            updateGoodsCount();
-        }
-
+        updateGoodsCount();
     }
 
     private void updateGoodsCount() {
@@ -95,36 +86,6 @@ public class Personal_Fragment extends BaseFragment {
             public void onError(String error) {
                 CommonUtils.showLongToast(error);
                 Log.i("main", "onError: "+error);
-            }
-        });
-    }
-
-    private void update() {
-        GoodsDao.findUserByUserName(context, user.getMuserName(), new OkHttpUtils.OnCompleteListener<ResultBean>() {
-            @Override
-            public void onSuccess(ResultBean result) {
-                if (result.isRetMsg()){
-                    String json = result.getRetData().toString();
-                    Gson gson = new Gson();
-                    UserAvatar userAvatar = gson.fromJson(json, UserAvatar.class);
-                    user = userAvatar;
-                    Log.i("main", "onSuccess: user"+user.getMavatarLastUpdateTime());
-                    Log.i("main", "onSuccess: userAvatar"+userAvatar.getMavatarLastUpdateTime());
-                    //if (!user.equals(userAvatar)){
-                        SharePrefrenceUtils.getInstance(context).saveUser(userAvatar.getMuserName());
-                        FuLiCenterApplication.setUserAvatar(userAvatar);
-                        tvName.setText(userAvatar.getMuserNick());
-                        if (userAvatar.getMavatarSuffix() != null) {
-                            ImageLoader.downloadAvatar(ImageLoader.getAvatar(userAvatar), context, ivAvatar);
-                        }
-
-                  // }
-                }
-            }
-
-            @Override
-            public void onError(String error) {
-
             }
         });
     }

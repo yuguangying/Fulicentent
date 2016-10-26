@@ -55,7 +55,7 @@
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/like"
             android:button="@null"
-            android:drawableTop="@drawable/selector_menu_item_cart" />
+            android:drawableTop="@mipmap/menu_item_cart_normal" />
     </RelativeLayout>
 
     <RelativeLayout
