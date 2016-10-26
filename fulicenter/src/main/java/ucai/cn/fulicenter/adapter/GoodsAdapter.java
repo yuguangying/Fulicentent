@@ -17,6 +17,7 @@ import java.util.Comparator;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.activity.GoodsDatileActivity;
@@ -114,7 +115,6 @@ public class GoodsAdapter extends RecyclerView.Adapter {
     }
 
 
-
     class FootViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.foot)
         TextView foot;
@@ -134,43 +134,51 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         TextView goodsPrice;
         @Bind(R.id.goods_item)
         LinearLayout gooditem;
+
         GoodsViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
+
         @OnClick(R.id.goods_item)
-        public void goodOnclick(){
-            int goodsId = (int) gooditem.getTag();
-            MFGT.gotoGoodsDatileActivity(context,goodsId);
+        public void goodOnclick() {
+            if (FuLiCenterApplication.getUser() == null) {
+                MFGT.gotoSignActivity(context);
+            } else {
+                int goodsId = (int) gooditem.getTag();
+                MFGT.gotoGoodsDatileActivity(context, goodsId);
+            }
         }
     }
-    private void sortByCurrencyPrice(){
+
+    private void sortByCurrencyPrice() {
         Collections.sort(goodlist, new Comparator<NewGoodsBeanFive>() {
             @Override
             public int compare(NewGoodsBeanFive left, NewGoodsBeanFive right) {
-                int result= 0;
-                switch (sort){
+                int result = 0;
+                switch (sort) {
                     case I.SORT_BY_ADDTIME_ASC:
-                        result = (int) (Long.valueOf(left.getAddTime())-Long.valueOf(right.getAddTime()));
+                        result = (int) (Long.valueOf(left.getAddTime()) - Long.valueOf(right.getAddTime()));
                         break;
                     case I.SORT_BY_ADDTIME_DESC:
-                        result = (int) (Long.valueOf(right.getAddTime())-Long.valueOf(left.getAddTime()));
+                        result = (int) (Long.valueOf(right.getAddTime()) - Long.valueOf(left.getAddTime()));
                         break;
                     case I.SORT_BY_PRICE_ASC:
-                        result = money(left.getCurrencyPrice())-money(right.getCurrencyPrice());
+                        result = money(left.getCurrencyPrice()) - money(right.getCurrencyPrice());
                         break;
                     case I.SORT_BY_PRICE_DESC:
-                        result = money(right.getCurrencyPrice())-money(left.getCurrencyPrice());
+                        result = money(right.getCurrencyPrice()) - money(left.getCurrencyPrice());
                         break;
                 }
                 return result;
             }
-            private int money(String pice){
-                pice=pice.substring(pice.indexOf("￥")+1);
+
+            private int money(String pice) {
+                pice = pice.substring(pice.indexOf("￥") + 1);
                 int jaige = Integer.valueOf(pice);
                 return jaige;
             }
-        } );
+        });
 
     }
 }

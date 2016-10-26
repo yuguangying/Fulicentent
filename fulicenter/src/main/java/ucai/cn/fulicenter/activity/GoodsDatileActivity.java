@@ -24,6 +24,7 @@ import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
+import ucai.cn.fulicenter.utils.MFGT;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.views.FlowIndicator;
 import ucai.cn.fulicenter.views.SlideAutoLoopView;
@@ -68,7 +69,7 @@ public class GoodsDatileActivity extends BaseActivity {
             finish();
         }
         context = this;
-        updateLike();
+            updateLike();
         super.onCreate(savedInstanceState);
     }
 
@@ -93,7 +94,6 @@ public class GoodsDatileActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     private void showGoodsDatile(GoodsDetailsBean details) {
@@ -138,6 +138,7 @@ public class GoodsDatileActivity extends BaseActivity {
                 break;
             case R.id.like:
                 isCollect();
+
                 break;
             case R.id.add_car:
                 break;
@@ -187,6 +188,7 @@ public class GoodsDatileActivity extends BaseActivity {
                     }
                 });
     }
+
     public void updateLike() {
         GoodsDao.isCollect(context, goodsid, FuLiCenterApplication.getUser().getMuserName(),
                 new OkHttpUtils.OnCompleteListener<MessageBean>() {
@@ -196,6 +198,7 @@ public class GoodsDatileActivity extends BaseActivity {
                             like.setChecked(true);
                         }
                     }
+
                     @Override
                     public void onError(String error) {
                         Log.i("main", "onError: " + error);

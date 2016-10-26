@@ -140,8 +140,13 @@ public class CollexctGoodsAdapter extends RecyclerView.Adapter {
         }
         @OnClick(R.id.goods_item)
         public void gooditem() {
-            CollectBean goods = (CollectBean) goodsItem.getTag();
-            MFGT.gotoGoodsDatileActivity(context, goods.getGoodsId());
+            if (FuLiCenterApplication.getUser() == null) {
+                MFGT.gotoSignActivity(context);
+            } else {
+                CollectBean goods = (CollectBean) goodsItem.getTag();
+                MFGT.gotoGoodsDatileActivity(context, goods.getGoodsId());
+            }
+
         }
         @OnClick(R.id.delete)
         public void delete(){

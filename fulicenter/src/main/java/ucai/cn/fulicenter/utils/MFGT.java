@@ -46,6 +46,10 @@ public class MFGT {
         context.startActivityForResult(in,111);
     }
 
+    public static void gotoSignActivity(Context context) {
+        Intent in = new Intent(context,SignInActivity.class);
+        context.startActivity(in);
+    }
     public static void signGotoMainActivity(Activity context) {
         Intent intent = new Intent();
         intent.setClass(context, MainActivity.class);

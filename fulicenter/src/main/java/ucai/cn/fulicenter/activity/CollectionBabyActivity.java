@@ -107,6 +107,7 @@ public class CollectionBabyActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        Log.i("m", "username: "+username+"pagId: "+pagId);
         GoodsDao.findCollects(context, username, pagId, action, I.PAGE_SIZE_DEFAULT, new OkHttpUtils.OnCompleteListener<CollectBean[]>() {
             @Override
             public void onSuccess(CollectBean[] result) {
@@ -121,7 +122,6 @@ public class CollectionBabyActivity extends BaseActivity {
                             goodadapter.initDataDown(list);
                             break;
                         case I.ACTION_PULL_DOWN:
-                            Log.i("main", "onSuccess: ACTION_PULL_DOWN"+list.size());
                             goodadapter.initDataDown(list);
                             swipeBoutiques.setRefreshing(false);
                             recyclerBoutiques.setVisibility(View.GONE);
