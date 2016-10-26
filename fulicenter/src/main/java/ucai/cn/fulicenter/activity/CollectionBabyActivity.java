@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.net.IDN;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -107,7 +108,7 @@ public class CollectionBabyActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        Log.i("m", "username: "+username+"pagId: "+pagId);
+        Log.i("m", "username: " + username + "pagId: " + pagId);
         GoodsDao.findCollects(context, username, pagId, action, I.PAGE_SIZE_DEFAULT, new OkHttpUtils.OnCompleteListener<CollectBean[]>() {
             @Override
             public void onSuccess(CollectBean[] result) {
@@ -147,6 +148,8 @@ public class CollectionBabyActivity extends BaseActivity {
         });
 
     }
+
+
 
     @Override
     protected void initView() {

@@ -138,7 +138,6 @@ public class GoodsDatileActivity extends BaseActivity {
                 break;
             case R.id.like:
                 isCollect();
-
                 break;
             case R.id.add_car:
                 break;
@@ -176,7 +175,7 @@ public class GoodsDatileActivity extends BaseActivity {
                                 + FuLiCenterApplication.getUser().getMuserName());
                         if (result.isSuccess()) {
                             CommonUtils.showLongToast("已收藏");
-                            like.setChecked(true);
+                            //deleteCollect();
                         } else {
                             addCollect();
                         }
@@ -187,6 +186,25 @@ public class GoodsDatileActivity extends BaseActivity {
                         Log.i("main", "onError: " + error);
                     }
                 });
+    }
+
+    private void deleteCollect() {
+        GoodsDao.deleteCollect(context, goodsid, FuLiCenterApplication.getUser().getMuserName(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result.isSuccess()){
+                    like.setChecked(false);
+                }else {
+                    CommonUtils.showLongToast("删除失败");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.i("main", "onError: "+error);
+                CommonUtils.showLongToast(error);
+            }
+        });
     }
 
     public void updateLike() {
