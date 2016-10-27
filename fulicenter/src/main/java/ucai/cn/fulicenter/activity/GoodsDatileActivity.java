@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,17 +23,21 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.R;
+import ucai.cn.fulicenter.adapter.CarAdapter;
 import ucai.cn.fulicenter.bean.AlbumsBean;
+import ucai.cn.fulicenter.bean.CartBean;
 import ucai.cn.fulicenter.bean.GoodsDetailsBean;
 import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
+import ucai.cn.fulicenter.utils.ConvertUtils;
 import ucai.cn.fulicenter.utils.MFGT;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 import ucai.cn.fulicenter.views.FlowIndicator;
 import ucai.cn.fulicenter.views.SlideAutoLoopView;
 
 public class GoodsDatileActivity extends BaseActivity {
+    final static String TAG = "main";
 
     @Bind(R.id.back)
     ImageView back;
@@ -142,8 +148,83 @@ public class GoodsDatileActivity extends BaseActivity {
                 isCollect();
                 break;
             case R.id.add_car:
+                findCarts();
                 break;
         }
+    }
+
+    private void findCarts() {
+        GoodsDao.findCarts(context, FuLiCenterApplication.getUser().getMuserName(), new OkHttpUtils.OnCompleteListener<CartBean[]>() {
+            @Override
+            public void onSuccess(CartBean[] result) {
+                if (result.length > 0) {
+                    ArrayList<CartBean> cartBeen = ConvertUtils.array2List(result);
+                    boolean flag = false;
+                    for (CartBean c : cartBeen) {
+                        if (c.getGoods().getGoodsId() == goodsid) {
+                            updateCart(c,cartBeen);
+                            flag = true;
+                        }
+                    }
+                    if (!flag){
+                        addCart();
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.showLongToast(error);
+                Log.i(TAG, "onError: " + error);
+            }
+        });
+    }
+
+    private void addCart() {
+        GoodsDao.addCart(context, goodsid, FuLiCenterApplication.getUser().getMuserName(), 1,
+                new OkHttpUtils.OnCompleteListener<MessageBean>() {
+            @Override
+            public void onSuccess(MessageBean result) {
+                if (result.isSuccess()){
+                    if (result.isSuccess()) {
+                        context.sendBroadcast(new Intent("update"));
+                        CommonUtils.showLongToast("添加成功");
+                    }else {
+                        CommonUtils.showLongToast("添加失败");
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                CommonUtils.showLongToast(error);
+                Log.i(TAG, "onError: " + error);
+            }
+        });
+    }
+
+    private void updateCart(CartBean c,ArrayList<CartBean> cartBeen) {
+        final String id = String.valueOf(c.getId());
+        GoodsDao.updateCart(context, c.getId(), FuLiCenterApplication.getUser().getMuserName()
+                , c.getCount() + 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    @Override
+                    public void onSuccess(MessageBean result) {
+                        if (result.isSuccess()) {
+//                            Intent intent = new Intent("update");
+//                            intent.putExtra("id",id);
+//                            context.sendBroadcast(intent);
+                            CommonUtils.showLongToast("添加成功");
+                        }else {
+                            CommonUtils.showLongToast("添加失败");
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        CommonUtils.showLongToast(error);
+                        Log.i(TAG, "onError: " + error);
+                    }
+                });
     }
 
     private void addCollect() {
@@ -172,7 +253,6 @@ public class GoodsDatileActivity extends BaseActivity {
                 new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
                     public void onSuccess(MessageBean result) {
-
                         Log.i("main", "onSuccess: " + result.toString() + ":goodsid" + goodsDetails.getGoodsId() + ":name"
                                 + FuLiCenterApplication.getUser().getMuserName());
                         if (result.isSuccess()) {
@@ -201,6 +281,7 @@ public class GoodsDatileActivity extends BaseActivity {
                     CommonUtils.showLongToast("删除失败");
                 }
             }
+
             @Override
             public void onError(String error) {
                 Log.i("main", "onError: " + error);

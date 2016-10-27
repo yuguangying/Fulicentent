@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import ucai.cn.fulicenter.bean.MessageBean;
 import ucai.cn.fulicenter.net.GoodsDao;
 import ucai.cn.fulicenter.utils.CommonUtils;
 import ucai.cn.fulicenter.utils.ImageLoader;
+import ucai.cn.fulicenter.utils.MFGT;
 import ucai.cn.fulicenter.utils.OkHttpUtils;
 
 
@@ -98,30 +100,19 @@ public class CarAdapter extends RecyclerView.Adapter {
             c.setChecked(true);
             context.sendBroadcast(new Intent("update"));
         }
-
+        @OnClick(R.id.car_goods_picture)
+        public void avatarOnClick() {
+            CartBean c = (CartBean) carCheckbox.getTag();
+            MFGT.gotoGoodsDatileActivity(context,c.getGoodsId());
+        }
         @OnClick(R.id.del_cart_count)
         public void delCarCountOnClick() {
             Log.i(TAG, "delCarCountOnClick: ");
             final int delpostion = (int) delCartCount.getTag();
             CartBean c = cartList.get(delpostion);
+            int count = cartList.get(delpostion).getCount()-1;
             if (cartList.get(delpostion).getCount() > 1) {
-                GoodsDao.updateCart(context,c.getId(),FuLiCenterApplication.getUser().getMuserName(),
-                        cartList.get(delpostion).getCount() - 1,new OkHttpUtils.OnCompleteListener<MessageBean>() {
-                            @Override
-                            public void onSuccess(MessageBean result) {
-                                if (result.isSuccess()) {
-                                    cartList.get(delpostion).setCount(cartList.get(delpostion).getCount() - 1);
-                                    context.sendBroadcast(new Intent("update"));
-                                    carCount.setText(cartList.get(delpostion).getCount() + "");
-                                    notifyDataSetChanged();
-                                }
-                            }
-                            @Override
-                            public void onError(String error) {
-                                CommonUtils.showLongToast(error);
-                                Log.i(TAG, "onError: " + error);
-                            }
-                        });
+               updateCart(delpostion,count,c);
             }else {
                 GoodsDao.deleteCart(context, c.getId(), new OkHttpUtils.OnCompleteListener<MessageBean>() {
                     @Override
@@ -144,15 +135,24 @@ public class CarAdapter extends RecyclerView.Adapter {
 
         @OnClick(R.id.add_car_count)
         public void addCarCountOnClick() {
+            addCarCount();
+        }
+
+        public void addCarCount() {
             Log.i(TAG, "addCarCountOnClick: ");
             final int addpostion = (int) addCarCount.getTag();
+            int count = cartList.get(addpostion).getCount() + 1;
             CartBean c = cartList.get(addpostion);
+            updateCart(addpostion,count, c);
+        }
+
+        private synchronized void updateCart(final int addpostion, final int count, CartBean c) {
             GoodsDao.updateCart(context, c.getId(), FuLiCenterApplication.getUser().getMuserName(),
-                    cartList.get(addpostion).getCount() + 1, new OkHttpUtils.OnCompleteListener<MessageBean>() {
+                    count, new OkHttpUtils.OnCompleteListener<MessageBean>() {
                         @Override
                         public void onSuccess(MessageBean result) {
                             if (result.isSuccess()) {
-                                cartList.get(addpostion).setCount(cartList.get(addpostion).getCount() + 1);
+                                cartList.get(addpostion).setCount(count);
                                 context.sendBroadcast(new Intent("update"));
                                 carCount.setText(cartList.get(addpostion).getCount() + "");
                                 notifyDataSetChanged();

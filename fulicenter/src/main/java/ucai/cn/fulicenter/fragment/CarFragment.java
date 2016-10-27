@@ -54,8 +54,8 @@ public class CarFragment extends Fragment {
     LinearLayout carBuyLl;
     @Bind(R.id.car_ko)
     TextView carKo;
-
     MyBroadcast myReceiver;
+
     public CarFragment() {
 
     }
@@ -78,7 +78,7 @@ public class CarFragment extends Fragment {
 
     }
 
-    private void setListener(){
+    private void setListener() {
         swipeBoutiques.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -91,10 +91,9 @@ public class CarFragment extends Fragment {
     }
 
     private void UserHas(boolean has) {
-        carBuyLl.setVisibility(has?View.VISIBLE:View.GONE);
-        carKo.setVisibility(has?View.GONE:View.VISIBLE);
-        carBuyLl.setVisibility(has?View.VISIBLE:View.GONE);
-        sumPrice();
+        carBuyLl.setVisibility(has ? View.VISIBLE : View.GONE);
+        carKo.setVisibility(has ? View.GONE : View.VISIBLE);
+        carBuyLl.setVisibility(has ? View.VISIBLE : View.GONE);
     }
 
     private void FindCarts() {
@@ -105,7 +104,7 @@ public class CarFragment extends Fragment {
                 swipeBoutiques.setRefreshing(false);
                 if (result.length > 0) {
                     ArrayList<CartBean> cartBeen = ConvertUtils.array2List(result);
-                    list=cartBeen;
+                    list = cartBeen;
                     carAdapter.initDataDown(list);
                     UserHas(true);
                 } else {
@@ -154,7 +153,7 @@ public class CarFragment extends Fragment {
         if (list.size() > 0) {
             for (CartBean c : list) {
                 if (c.isChecked()) {
-                    Log.i(TAG, "sumPrice: "+c.getGoodsId());
+                    Log.i(TAG, "sumPrice: " + c.getGoodsId());
                     sumPrice += money(c.getGoods().getCurrencyPrice()) * c.getCount();
                     rankPrice += money(c.getGoods().getRankPrice()) * c.getCount();
                 }
@@ -173,21 +172,30 @@ public class CarFragment extends Fragment {
         int jaige = Integer.valueOf(pice);
         return jaige;
     }
-    public class MyBroadcast extends BroadcastReceiver{
+
+    public class MyBroadcast extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            sumPrice();
+            if (intent.getStringExtra("id") != null) {
+
+            } else {
+                sumPrice();
+            }
         }
     }
 
+    /**
+     * 注册广播
+     */
     @Override
     public void onStart() {
         super.onStart();
         myReceiver = new MyBroadcast();
         IntentFilter filter = new IntentFilter();
         filter.addAction("update");
-        getContext().registerReceiver(myReceiver,filter);
+        getContext().registerReceiver(myReceiver, filter);
     }
+
 
     @Override
     public void onDestroy() {
