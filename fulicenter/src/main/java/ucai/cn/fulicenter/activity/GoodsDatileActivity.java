@@ -176,8 +176,8 @@ public class GoodsDatileActivity extends BaseActivity {
                         Log.i("main", "onSuccess: " + result.toString() + ":goodsid" + goodsDetails.getGoodsId() + ":name"
                                 + FuLiCenterApplication.getUser().getMuserName());
                         if (result.isSuccess()) {
-                            CommonUtils.showLongToast("已收藏");
-                            //deleteCollect();
+                            //CommonUtils.showLongToast("已收藏");
+                            deleteCollect();
                         } else {
                             addCollect();
                         }
@@ -196,11 +196,11 @@ public class GoodsDatileActivity extends BaseActivity {
             public void onSuccess(MessageBean result) {
                 if (result.isSuccess()) {
                     like.setChecked(false);
+                    CommonUtils.showLongToast("删除成功");
                 } else {
                     CommonUtils.showLongToast("删除失败");
                 }
             }
-
             @Override
             public void onError(String error) {
                 Log.i("main", "onError: " + error);

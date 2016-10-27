@@ -151,6 +151,7 @@ public class CollectionBabyActivity extends BaseActivity {
 
 
 
+
     @Override
     protected void initView() {
         context = this;
