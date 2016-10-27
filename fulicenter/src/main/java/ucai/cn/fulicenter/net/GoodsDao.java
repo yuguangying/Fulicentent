@@ -161,24 +161,24 @@ public class GoodsDao {
                 .execute(listener);
     }
     //http://101.251.196.90:8000/FuLiCenterServerV2.0/addCart?goods_id=7671&userName=yeshen&count=1&isChecked=0
-    public static void addCart(Context context, int goodsid, String username,int count,int isChecked, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+    public static void addCart(Context context, int goodsid, String username,int count, OkHttpUtils.OnCompleteListener<MessageBean> listener){
         OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_ADD_CART)
                 .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
                 .addParam(I.Collect.USER_NAME,username)
                 .addParam("count",String.valueOf(count))
-                .addParam("isChecked",String.valueOf(isChecked))
+                .addParam("isChecked",String.valueOf(0))
                 .targetClass(MessageBean.class)
                 .execute(listener);
 
     }
     //http://101.251.196.90:8000/FuLiCenterServerV2.0/updateCart?id=1&count=1&isChecked=0
-    public static void updateCart(Context context, int id, String username,int count,int isChecked, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+    public static void updateCart(Context context, int id, String username,int count, OkHttpUtils.OnCompleteListener<MessageBean> listener){
         OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
         utils.url(I.SERVER_ROOT+I.REQUEST_UPDATE_CART)
                 .addParam(I.Boutique.ID,String.valueOf(id))
                 .addParam("count",String.valueOf(count))
-                .addParam("isChecked",String.valueOf(isChecked))
+                .addParam("isChecked",String.valueOf(0))
                 .targetClass(MessageBean.class)
                 .execute(listener);
 

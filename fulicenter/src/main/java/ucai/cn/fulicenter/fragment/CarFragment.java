@@ -94,7 +94,7 @@ public class CarFragment extends Fragment {
         carBuyLl.setVisibility(has?View.VISIBLE:View.GONE);
         carKo.setVisibility(has?View.GONE:View.VISIBLE);
         carBuyLl.setVisibility(has?View.VISIBLE:View.GONE);
-
+        sumPrice();
     }
 
     private void FindCarts() {
@@ -162,6 +162,7 @@ public class CarFragment extends Fragment {
             carTotal.setText("合计：￥ " + Double.valueOf(sumPrice));
             carSave.setText("节省：￥ " + Double.valueOf(sumPrice - rankPrice));
         } else {
+            UserHas(false);
             carTotal.setText("合计：￥ 0");
             carSave.setText("节省：￥ 0");
         }
