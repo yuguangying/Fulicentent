@@ -1,6 +1,7 @@
 package ucai.cn.fulicenter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.bean.CartBean;
 import ucai.cn.fulicenter.utils.ImageLoader;
@@ -44,6 +46,7 @@ public class CarAdapter extends RecyclerView.Adapter {
         carHolder.carPrice.setText(cartBean.getGoods().getCurrencyPrice());
         ImageLoader.downloadImg(context, carHolder.carGoodsPicture,
                 cartBean.getGoods().getGoodsThumb());
+        carHolder.carCheckbox.setTag(cartBean);
     }
     @Override
     public int getItemCount() {
@@ -51,8 +54,8 @@ public class CarAdapter extends RecyclerView.Adapter {
     }
 
     public void initDataDown(ArrayList<CartBean> list) {
-        cartList.clear();
-        cartList.addAll(list);
+        //cartList.clear();
+        cartList = list;
         Log.i(TAG, "initDataDown: " + cartList.size());
         notifyDataSetChanged();
     }
@@ -76,5 +79,12 @@ public class CarAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+        @OnClick(R.id.car_checkbox)
+        public void checkboxOnClick(){
+            CartBean c = (CartBean) carCheckbox.getTag();
+            c.setChecked(true);
+            context.sendBroadcast(new Intent("update"));
+        }
     }
+
 }
