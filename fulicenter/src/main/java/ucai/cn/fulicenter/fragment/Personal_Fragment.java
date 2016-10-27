@@ -47,6 +47,7 @@ public class Personal_Fragment extends BaseFragment {
     TextView collectionOfFootprint;
 
     UserAvatar user;
+
     public Personal_Fragment() {
 
     }
@@ -65,7 +66,7 @@ public class Personal_Fragment extends BaseFragment {
     @Override
     protected void initData() {
         user = FuLiCenterApplication.getUser();
-        if (user!=null) {
+        if (user != null) {
             tvName.setText(user.getMuserNick());
             if (user.getMavatarSuffix() != null) {
                 Log.i("main", "initData: getMavatarSuffix");
@@ -85,7 +86,7 @@ public class Personal_Fragment extends BaseFragment {
             @Override
             public void onError(String error) {
                 CommonUtils.showLongToast(error);
-                Log.i("main", "onError: "+error);
+                Log.i("main", "onError: " + error);
             }
         });
     }
@@ -106,7 +107,7 @@ public class Personal_Fragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.collection1, R.id.collection2, R.id.collection3,R.id.tv_she})
+    @OnClick({R.id.collection1, R.id.collection2, R.id.collection3, R.id.tv_she})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.collection1:
@@ -127,7 +128,9 @@ public class Personal_Fragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        initData();
+        if (FuLiCenterApplication.getUser() != null) {
+            initData();
+        }
     }
 
 }

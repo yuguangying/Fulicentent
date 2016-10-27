@@ -6,6 +6,7 @@ import java.io.File;
 
 import ucai.cn.fulicenter.I;
 import ucai.cn.fulicenter.bean.BoutiqueBean;
+import ucai.cn.fulicenter.bean.CartBean;
 import ucai.cn.fulicenter.bean.CategoryChildBean;
 import ucai.cn.fulicenter.bean.CategoryGroupBean;
 import ucai.cn.fulicenter.bean.CollectBean;
@@ -150,5 +151,45 @@ public class GoodsDao {
                 .addParam(I.User.USER_NAME,name)
                 .targetClass(ResultBean.class)
                 .execute(listener);
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/findCarts?userName=yeshen
+    public static void findCarts(Context context, String name, OkHttpUtils.OnCompleteListener<CartBean[]> listener){
+        OkHttpUtils<CartBean[]> utils = new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_FIND_CARTS)
+                .addParam(I.Cart.USER_NAME,name)
+                .targetClass(CartBean[].class)
+                .execute(listener);
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/addCart?goods_id=7671&userName=yeshen&count=1&isChecked=0
+    public static void addCart(Context context, int goodsid, String username,int count,int isChecked, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_ADD_CART)
+                .addParam(I.Goods.KEY_GOODS_ID,String.valueOf(goodsid))
+                .addParam(I.Collect.USER_NAME,username)
+                .addParam("count",String.valueOf(count))
+                .addParam("isChecked",String.valueOf(isChecked))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/updateCart?id=1&count=1&isChecked=0
+    public static void updateCart(Context context, int id, String username,int count,int isChecked, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_UPDATE_CART)
+                .addParam(I.Boutique.ID,String.valueOf(id))
+                .addParam("count",String.valueOf(count))
+                .addParam("isChecked",String.valueOf(isChecked))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
+    }
+    //http://101.251.196.90:8000/FuLiCenterServerV2.0/deleteCart?id=1
+    public static void deleteCart(Context context, int id, OkHttpUtils.OnCompleteListener<MessageBean> listener){
+        OkHttpUtils<MessageBean> utils =new OkHttpUtils<>(context);
+        utils.url(I.SERVER_ROOT+I.REQUEST_DELETE_CART)
+                .addParam(I.Boutique.ID,String.valueOf(id))
+                .targetClass(MessageBean.class)
+                .execute(listener);
+
     }
 }

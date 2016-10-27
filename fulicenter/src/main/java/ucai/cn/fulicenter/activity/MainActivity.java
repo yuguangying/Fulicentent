@@ -16,13 +16,14 @@ import butterknife.OnClick;
 import ucai.cn.fulicenter.FuLiCenterApplication;
 import ucai.cn.fulicenter.R;
 import ucai.cn.fulicenter.fragment.BoutiqueFragment;
+import ucai.cn.fulicenter.fragment.CarFragment;
 import ucai.cn.fulicenter.fragment.CategoryFragment;
 import ucai.cn.fulicenter.fragment.NewGoodsFragment;
 import ucai.cn.fulicenter.fragment.Personal_Fragment;
 import ucai.cn.fulicenter.utils.MFGT;
 
 public class MainActivity extends AppCompatActivity {
-
+static final String TAG = "main";
 
     @Bind(R.id.mboutique)
     RadioButton mboutique;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fragments[0] = new BoutiqueFragment();
         fragments[1] = new CategoryFragment();
         fragments[3] = new Personal_Fragment();
+        fragments[4] = new CarFragment();
     }
 
 
@@ -85,7 +87,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.mcar:
-                index=4;
+                if (FuLiCenterApplication.getUser()==null){
+                    MFGT.gotoSignActivity(this);
+                }else {
+                    index=4;
+                }
                 break;
         }
         setFragment();

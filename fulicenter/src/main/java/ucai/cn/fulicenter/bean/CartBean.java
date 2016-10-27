@@ -10,6 +10,7 @@ public class CartBean implements Serializable {
     private int count;
     private boolean isChecked;
     private GoodsDetailsBean goods;
+    private boolean checked = false;
 
     public int getId() {
         return id;
